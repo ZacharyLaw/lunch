@@ -1,7 +1,11 @@
 # Lunch Balance
-[Google Sheet (Database)](https://docs.google.com/spreadsheets/d/1pU4uWo6HQUNyoJ5C7ZLx-tJ1Pk0Vvxsmgc04hw0UWtw/edit?usp=sharing)
+[![clasp](https://img.shields.io/badge/built%20with-clasp-4285f4.svg)](https://github.com/google/clasp)
 
 [Lunch Balance Site](https://sites.google.com/peplink.com/lunch)
+
+
+[Google Sheet (Database)](https://docs.google.com/spreadsheets/d/1pU4uWo6HQUNyoJ5C7ZLx-tJ1Pk0Vvxsmgc04hw0UWtw/edit?usp=sharing)
+
 
 [Google App Script (Backend)](https://script.google.com/u/0/home/projects/1N0tAoXCfwq_vJlkoANn86k8q0ACPve27Ad4i-HdEn6Z-tyRe0K5pVb2X/edit)
 
@@ -11,9 +15,9 @@
 
 
 ## Future Plans
+✅ Embed in Intranet/Google Site (XFrameOptionsMode)
 
-- [x] Embed in Intranet/Google Site (XFrameOptionsMode)
-- [x] Mobile Friendly
+✅ Mobile Friendly
 - [x] Negative Expense
 - [x] Mobile Statement View Fix
 - [x] Individual Balance in History
