@@ -29,15 +29,16 @@
 
 ✅ Lunch Balance UI / UX
 
-✅ Documentation of future maintenance and approach method
+☐ Documentation of future maintenance and approach method
 
-✅ Lunch Balance Support Attachments? Upload file to my google drive with Google Apps Script (NO FORM IN GOOGLE)
+☐ Lunch Balance Support Attachments? Upload file to my google drive with Google Apps Script (NO FORM IN GOOGLE)
 
-✅ Private Cache for Recent Restaurant / Debitors / Expense Title
+☐ Private Cache for Recent Restaurant / Debitors / Expense Title
 
-✅ Weekly/Monthly/Yearly Lunch Expense Analysis
+☐ Weekly/Monthly/Yearly Lunch Expense Analysis
 
-✅ Join Pep Org/Enterprise github
+☐ Join Pep Org/Enterprise github
+
 
 ## Un-doable
 ❌ (Not in Google Admin) Ask access to Lunch_Balance@peplink.com
