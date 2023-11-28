@@ -1,8 +1,7 @@
-# Lunch Balance
+# [Lunch Balance](https://sites.google.com/peplink.com/lunch)
 [![clasp](https://img.shields.io/badge/built%20with-clasp-4285f4.svg)](https://github.com/google/clasp)
 
 [Lunch Balance Site](https://sites.google.com/peplink.com/lunch)
-
 
 [Google Sheet (Database)](https://docs.google.com/spreadsheets/d/1pU4uWo6HQUNyoJ5C7ZLx-tJ1Pk0Vvxsmgc04hw0UWtw/edit?usp=sharing)
 
@@ -12,7 +11,22 @@
 [Phoebe Figma UI/UX Sketch](https://www.figma.com/file/Ya1LfDaUotjncmGYSUjkFR/Intranet?type=design&node-id=26%3A2&mode=dev)
 
 
+## How to Add Colleague
+Go to [Google Sheet (Database)](https://docs.google.com/spreadsheets/d/1pU4uWo6HQUNyoJ5C7ZLx-tJ1Pk0Vvxsmgc04hw0UWtw/edit?usp=sharing) > Statment Sheet > Last Row > Insert Name, Sum (0), email
 
+Refresh [Lunch Balance Site](https://sites.google.com/peplink.com/lunch) to see if its in effect
+
+Lunch Balance Uses email as Primary Key, please **avoid email duplication** and use [Email Plus + Trick](https://gmail.googleblog.com/2008/03/2-hidden-ways-to-get-more-from-your.html) if necessary
+
+## How to Remove Colleague
+Go to [Google Sheet (Database)](https://docs.google.com/spreadsheets/d/1pU4uWo6HQUNyoJ5C7ZLx-tJ1Pk0Vvxsmgc04hw0UWtw/edit?usp=sharing) > Statment Sheet > Remove Row for the according record
+
+Refresh [Lunch Balance Site](https://sites.google.com/peplink.com/lunch) to see if its in effect
+
+## Change Weekly Schedule Email
+Use Incognito Window Browser, Login [Google App Script Triggers](https://script.google.com/u/0/home/projects/1N0tAoXCfwq_vJlkoANn86k8q0ACPve27Ad4i-HdEn6Z-tyRe0K5pVb2X/triggers) as mis@peplink.com > Hover on Trigger > Click Edit Trigger Pen 🖊 (Only Trigger Owner can edit) > Select and Save as accordingly
+
+Note: Only Trigger Owner can edit/delete trigger
 
 ## Future Plans
 ✅ Embed in Intranet/Google Site (XFrameOptionsMode)
@@ -28,6 +42,8 @@
 ✅ Loading Wheel (Process indicator)
 
 ✅ Lunch Balance UI / UX
+
+☐ Checkbox to change to peplink@peplink.com
 
 ☐ Documentation of future maintenance and approach method
 

@@ -92,6 +92,7 @@
 				border: none;
 				border-radius: 1.1em;
 				padding: 0px .5em 0 .5em;
+				margin-left: auto;
 			}
 
 			.s:hover {
@@ -274,6 +275,9 @@ span.item{
   opacity: 0.6;
   cursor: not-allowed!important;
 }
+#sw{
+	margin: 5px;
+}
 @media only screen and (max-width: 700px){
 							.v.collapsed::before{
 								z-index: 15;
@@ -320,6 +324,7 @@ span.item{
 			
 			<label for=email>Your are:</label><p id=email><?=grab('user')?></p>
 			<label for=bal>Balance:</label>	<p id=bal></p>
+			<label for=sw>Switch to Peplink Account</label><input id=sw type="checkbox">
 			<label for=titleInput>Restaurant (Optional):</label><input id=titleInput>
 			<label for=deb style=align-self:normal>Debitor(s):</label>
 			<div id=deb>
@@ -369,6 +374,7 @@ span.item{
 		<div><p class=v></p><div class=statement></div></div><!--<button class=v></button>-->
 	</main>
 	<script>
+		console.log("%cLink to readme.md: https://bitbucket.org/peplinkec/lunch-balance/src/master/readme.md", "font-weight: bold;color: red; font-size:50px; text-decoration: underline;");
 		//put data in div
 		var select
 		function initStatement() {
@@ -402,6 +408,33 @@ console.log('c.recentD',c.recentD)
 			$('.statement').html(<?=grab('table')?>).promise().done(function () {
 		
 				user=<?=grab('user')?>;
+				$('#sw').on('change', function() {
+						if ($(this).is(':checked')) {
+						prevuser=user
+						user='account+HQ@peplink.com'
+						$('#email').html(user)
+						$('#bal').html(lookup(user,2,1))
+						$('.marked-row').removeClass('marked-row')
+						$('.statement tbody tr').each(function () {if ($(this).find('td:nth-child(3)').text() === user) $(this).addClass('marked-row')})
+						select.disableOption(user)
+						select.enableOption(prevuser)
+						select.deselectAll()
+						$('.t tfoot td:nth-child(2)').text('0')
+						$('table tbody.distribute').html('')
+
+						} else {
+						user=prevuser
+						$('#email').html(user)
+						$('#bal').html(lookup(user,2,1))
+						$('.marked-row').removeClass('marked-row')
+						$('.statement tbody tr').each(function () {if ($(this).find('td:nth-child(3)').text() === user) $(this).addClass('marked-row')})
+						select.disableOption(user)
+						select.enableOption('account+HQ@peplink.com')
+						select.deselectAll()
+						$('.t tfoot td:nth-child(2)').text('0')
+						$('table tbody.distribute').html('')
+						}
+					});
 					initStatement()
 					$('.v').click(()=>{$('.v,.statement').toggleClass('collapsed');$('.statement').toggle("slide", {direction:'right'})})
 					$(document).on('click', '.statement thead th', function () {
@@ -430,10 +463,10 @@ console.log('c.recentD',c.recentD)
 					$('.statement tbody tr').each(function () {
 						$('#debitors').append('<option value="' + $(this).find('td:nth-child(3)').text()+ '">' + $(this).find('td:first').text() + '</option>')
 					}).promise().done(function () {
-						$(`option[value="${user}"]`).remove();
+						//$(`option[value="${user}"]`).remove();
 						$('#debitors').show()
 						select = $('#debitors').filterMultiSelect({ placeholderText: 'Select Debitors...' })
-
+						select.disableOption(user)
 						var getJson = () => $.fn.filterMultiSelect.applied.map(e => JSON.parse(e.getSelectedOptionsAsJson(true))).reduce((p, c) => p.concat(c.debitor), [])
 						$('#debitors').on('optionselected optiondeselected', function (e) {
 							$('.t,.s').show()
