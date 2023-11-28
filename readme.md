@@ -18,21 +18,35 @@
 ✅ Embed in Intranet/Google Site (XFrameOptionsMode)
 
 ✅ Mobile Friendly
-- [x] Negative Expense
-- [x] Mobile Statement View Fix
-- [x] Individual Balance in History
-- [x] Loading Wheel (Process indicator)
-- [ ] Lunch Balance UI / UX
-- [ ] Documentation of future maintenance and approach method
-- [ ] Lunch Balance Support Attachments? Upload file to my google drive with Google Apps Script (NO FORM IN GOOGLE)
-- [ ] Private Cache for Recent Restaurant / Debitors / Expense Title
-- [ ] Weekly/Monthly/Yearly Lunch Expense Analysis
-- [ ] Join Pep Org/Enterprise github
 
+✅ Negative Expense
+
+✅ Mobile Statement View Fix
+
+✅ Individual Balance in History
+
+✅ Loading Wheel (Process indicator)
+
+✅ Lunch Balance UI / UX
+
+✅ Documentation of future maintenance and approach method
+
+✅ Lunch Balance Support Attachments? Upload file to my google drive with Google Apps Script (NO FORM IN GOOGLE)
+
+✅ Private Cache for Recent Restaurant / Debitors / Expense Title
+
+✅ Weekly/Monthly/Yearly Lunch Expense Analysis
+
+✅ Join Pep Org/Enterprise github
 
 ## Un-doable
-- [ ] (Not in Google Admin) Ask access to Lunch_Balance@peplink.com
-- [ ] (Not Google Admin) ghs.google.com Add lunch.peplink.com?
-- [ ] (Not Google Admin) Google Form to update Intranet Frontpage Details
-- [ ] (No API Key) Auto Google Contact Sync Intranet Frontpage
-- [ ] (No API Key) Auto Add Contact to Sheet1 with Notification (GoogleJsonResponseException: API call to directory.users.list failed with error: Not Authorized to access this resource/api)
+❌ (Not in Google Admin) Ask access to Lunch_Balance@peplink.com
+
+❌ (Not Google Admin) ghs.google.com Add lunch.peplink.com?
+
+❌ (Not Google Admin) Google Form to update Intranet Frontpage Details
+
+❌ (No API Key) Auto Google Contact Sync Intranet Frontpage
+
+❌ (No API Key) Auto Add Contact to Sheet1 with Notification (GoogleJsonResponseException: API call to directory.users.list 
+failed with error: Not Authorized to access this resource/api)
