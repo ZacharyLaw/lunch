@@ -16,7 +16,9 @@ Go to [Google Sheet (Database)](https://docs.google.com/spreadsheets/d/1pU4uWo6H
 Refresh [Lunch Balance Site](https://sites.google.com/peplink.com/lunch) to see if its in effect
 
 ## How to Add Colleague
-Go to [Google Sheet (Database)](https://docs.google.com/spreadsheets/d/1pU4uWo6HQUNyoJ5C7ZLx-tJ1Pk0Vvxsmgc04hw0UWtw/edit?usp=sharing) > Statement Sheet > Last Row > Insert Name, Sum (0), email
+**Method A (Automatic)**: Use Colleagues' Google Account to Login [Lunch Balance Site](https://sites.google.com/peplink.com/lunch)
+
+**Method B (Manually)**: Go to [Google Sheet (Database)](https://docs.google.com/spreadsheets/d/1pU4uWo6HQUNyoJ5C7ZLx-tJ1Pk0Vvxsmgc04hw0UWtw/edit?usp=sharing) > Statement Sheet > Last Row > Insert Name, Sum (0), email
 
 Refresh [Lunch Balance Site](https://sites.google.com/peplink.com/lunch) to see if its in effect
 
@@ -58,13 +60,15 @@ Refresh [Lunch Balance Site](https://sites.google.com/peplink.com/lunch) to see 
 
 ✅ Documentation of future maintenance and approach method
 
+✅ Auto Add Acc
+
 ☐ Lunch Balance Support Attachments? Upload file to my google drive with Google Apps Script (NO FORM IN GOOGLE)
 
 ☐ Private Cache for Recent Restaurant / Debitors / Expense Title
 
 ☐ Weekly/Monthly/Yearly Lunch Expense Analysis
 
-☐ Auto Add Acc
+☐ Change Self Username
 
 
 
