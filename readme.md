@@ -91,3 +91,7 @@ Refresh [Lunch Balance Site](https://sites.google.com/peplink.com/lunch) to see 
 
 ❌ (No API Key) Auto Add Contact to Sheet1 with Notification (GoogleJsonResponseException: API call to directory.users.list 
 failed with error: Not Authorized to access this resource/api)
+
+
+## Author
+[Zachary Law](zacharylaw@peplink.com) Started at 15 Nov 2023 to replace pre-exciting Lunch Balance
