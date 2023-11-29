@@ -453,7 +453,7 @@ console.log('c.recentD',c.recentD)
 					}
 					);
 					$(document).on('click', '#user button,#user', function () {
-						$('#user').html(`<input value=${lookup(user,2,0)} type=text>`)
+						$('#user').html(`<input value="${lookup(user,2,0)}" type=text>`)
 						$('#user input').focus()
 						$('#user').css('background-color','none')	
 					})
