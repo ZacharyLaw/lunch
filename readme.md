@@ -10,16 +10,20 @@
 
 [Phoebe Figma UI/UX Sketch](https://www.figma.com/file/Ya1LfDaUotjncmGYSUjkFR/Intranet?type=design&node-id=26%3A2&mode=dev)
 
+## Switch to Admin Accounts (Peplink,Peplink-LT,Resigned Staff)
+Go to [Google Sheet (Database)](https://docs.google.com/spreadsheets/d/1pU4uWo6HQUNyoJ5C7ZLx-tJ1Pk0Vvxsmgc04hw0UWtw/edit?usp=sharing) > Statement Sheet > Your account row > Tick Admin Checkbox
+
+Refresh [Lunch Balance Site](https://sites.google.com/peplink.com/lunch) to see if its in effect
 
 ## How to Add Colleague
-Go to [Google Sheet (Database)](https://docs.google.com/spreadsheets/d/1pU4uWo6HQUNyoJ5C7ZLx-tJ1Pk0Vvxsmgc04hw0UWtw/edit?usp=sharing) > Statment Sheet > Last Row > Insert Name, Sum (0), email
+Go to [Google Sheet (Database)](https://docs.google.com/spreadsheets/d/1pU4uWo6HQUNyoJ5C7ZLx-tJ1Pk0Vvxsmgc04hw0UWtw/edit?usp=sharing) > Statement Sheet > Last Row > Insert Name, Sum (0), email
 
 Refresh [Lunch Balance Site](https://sites.google.com/peplink.com/lunch) to see if its in effect
 
 Lunch Balance Uses email as Primary Key, please **avoid email duplication** and use [Email Plus + Trick](https://gmail.googleblog.com/2008/03/2-hidden-ways-to-get-more-from-your.html) if necessary
 
 ## How to Remove Colleague
-Go to [Google Sheet (Database)](https://docs.google.com/spreadsheets/d/1pU4uWo6HQUNyoJ5C7ZLx-tJ1Pk0Vvxsmgc04hw0UWtw/edit?usp=sharing) > Statment Sheet > Remove Row for the according record
+Go to [Google Sheet (Database)](https://docs.google.com/spreadsheets/d/1pU4uWo6HQUNyoJ5C7ZLx-tJ1Pk0Vvxsmgc04hw0UWtw/edit?usp=sharing) > Statement Sheet > Remove Row for the according record
 
 Refresh [Lunch Balance Site](https://sites.google.com/peplink.com/lunch) to see if its in effect
 

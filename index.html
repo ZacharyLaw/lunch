@@ -33,7 +33,7 @@
 			}
 
 			.marked-row,
-			#email ,#bal{
+			#user ,#bal{
 				background-color: yellow;
 				color: black;
 				margin: 0;
@@ -44,7 +44,7 @@
 
 			}
 
-			#email,#bal {
+			#user,#bal {
 				width: fit-content;
 				display: inline
 			}
@@ -276,14 +276,13 @@ span.item{
   cursor: not-allowed!important;
 }
 #sw{
-    width: 20px;
-    height: 20px;
+   
     margin-left: 10px;
-	width: auto;
-	height: auto;
 }
 #sw input{
 	display:inline;
+	width: 20px;
+    height: 20px;
 }
 label{
 	align-self: start;
@@ -336,11 +335,11 @@ label{
 				
 			<aside class=in>
 			
-			<label for=email>Your are:</label><p id=email><?=grab('user')?></p>
+			<label for=email>Your are:</label><p id=user><?=grab('user')?></p>
 			<label for=bal>Balance:</label>	<p id=bal></p>
 			<label for=sw class=sw>Switch to Account</label>
 			<aside id=sw class=sw>
-				<input type=checkbox value=account+HQ@peplink.com>  peplink <br>
+				<input type=checkbox value=account+HQ@peplink.com>  Peplink <br>
 				<input type=checkbox value=account+LT@peplink.com>  Peplink-LT <br>
 				<input type=checkbox value=account+Resigned@peplink.com>  Resigned Staff <br>
 			</aside>
@@ -402,6 +401,7 @@ label{
 			$('.statement th').each(function () { $(this).html($(this).html() + '<i class="material-icons" style="vertical-align: middle">unfold_more</i>') });
 		}
 		function lookup(input, inputColumn, outputColumn) {//0,1,2
+			result=false
 			$('.statement tbody tr').each(function () {
 				if ($(this).find(`td:eq(${inputColumn})`).text() === input) result = $(this).find(`td:eq(${outputColumn})`).text();
 			});
@@ -426,15 +426,28 @@ console.log('c.recentD',c.recentD)
 
 
 			$('.statement').html(<?=grab('table')?>).promise().done(function () {
-		
-				user=<?=grab('user')?>;
+				user='<?=grab('user')?>';
 				realuser=user
+				if (lookup(user,2,2)!=false){
+					$('#user').html(lookup(user,2,0))
+					$('#bal').html(lookup(user,2,1))}
+				if (lookup(user,2,2)==false) {
+					name=user.replace(/@peplink\.com/g,'');
+					$('#user').html(name);
+					$('#bal').html('0');
+					google.script.run.withSuccessHandler(table => {
+						$('.statement').html(table).promise().done(function () {
+							$('.statement tbody tr').each(function () {if ($(this).find('td:nth-child(3)').text() === user) $(this).addClass('marked-row')})})
+					}).register(user,name);
+				}
+				console.log('fullname?',user.replace(/@peplink\.com/g, ''))
+
 				if (lookup(user,2,3)=='true') $('.sw').removeClass('sw')
 				$('#sw input').on('change', function() {
 						if ($(this).is(':checked')) {
 						prevuser=user
 						user=$(this).val()
-						$('#email').html(user)
+						$('#user').html(lookup(user,2,0))
 						$('#bal').html(lookup(user,2,1))
 						$('.marked-row').removeClass('marked-row')
 						$('.statement tbody tr').each(function () {if ($(this).find('td:nth-child(3)').text() === user) $(this).addClass('marked-row')})
@@ -445,7 +458,7 @@ console.log('c.recentD',c.recentD)
 						$('table tbody.distribute').html('')
 						} else {
 						user=realuser
-						$('#email').html(user)
+						$('#user').html(lookup(user,2,0))
 						$('#bal').html(lookup(user,2,1))
 						$('.marked-row').removeClass('marked-row')
 						$('.statement tbody tr').each(function () {if ($(this).find('td:nth-child(3)').text() === user) $(this).addClass('marked-row')})
@@ -482,19 +495,22 @@ console.log('c.recentD',c.recentD)
 						$(this).data('ascending', !ascending);
 						table.find('tbody').empty().append(rows);
 					});
-
-					$('#bal').html(lookup(user,2,1))
+					
+					//$('.statement tbody').find('tr').filter(function(){$(this).find('td:empty').length > 0}).remove();
 					$('.statement tbody tr').each(function () {
 						$('#debitors').append('<option value="' + $(this).find('td:nth-child(3)').text()+ '">' + $(this).find('td:first').text() + '</option>')
 					}).promise().done(function () {
+						$('#debitors option[value=""]').remove();
+
 						//$(`option[value="${user}"]`).remove();
 						$('#debitors').show()
 						select = $('#debitors').filterMultiSelect({ placeholderText: 'Select Debitors...' })
 						select.disableOption(user)
-						var getJson = () => $.fn.filterMultiSelect.applied.map(e => JSON.parse(e.getSelectedOptionsAsJson(true))).reduce((p, c) => p.concat(c.debitor), [])
+						var getJson=()=>$.fn.filterMultiSelect.applied.map(e=>JSON.parse(e.getSelectedOptionsAsJson(true))).reduce((p,c)=>p.concat(c.debitor),[])
 						$('#debitors').on('optionselected optiondeselected', function (e) {
 							$('.t,.s').show()
 							$('.t tfoot td:nth-child(2)').text('0')
+							console.log('add', e, lookup(e,2,0))
 							$('table tbody.distribute').replaceWith($('<tbody class="distribute">').append(getJson().map(e => $('<tr>').append($('<td>').text(lookup(e,2,0)), $('<td>').append($('<input type="number" min="0" value="default 0" step="10">'))))));
 						})
 						$(document).on('input', '.t input', function () {
@@ -561,12 +577,8 @@ console.log('c.recentD',c.recentD)
 
 
 	
-	<script>
-  window.markerConfig = {
-    project: '6565701e0c2e6514a4bd6dd2', 
-    source: 'snippet'
-  };
-
+<script>
+window.markerConfig = {project: '6565701e0c2e6514a4bd6dd2',source: 'snippet'};
 !function(e,r,a){if(!e.__Marker){e.__Marker={};var t=[],n={__cs:t};["show","hide","isVisible","capture","cancelCapture","unload","reload","isExtensionInstalled","setReporter","setCustomData","on","off"].forEach(function(e){n[e]=function(){var r=Array.prototype.slice.call(arguments);r.unshift(e),t.push(r)}}),e.Marker=n;var s=r.createElement("script");s.async=1,s.src="https://edge.marker.io/latest/shim.js";var i=r.getElementsByTagName("script")[0];i.parentNode.insertBefore(s,i)}}(window,document);
 </script>
     

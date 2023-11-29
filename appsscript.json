@@ -1,23 +1,7 @@
 {
   "timeZone": "Asia/Hong_Kong",
   "dependencies": {
-    "enabledAdvancedServices": [
-      {
-        "userSymbol": "People",
-        "version": "v1",
-        "serviceId": "peopleapi"
-      },
-      {
-        "userSymbol": "Chat",
-        "version": "v1",
-        "serviceId": "chat"
-      },
-      {
-        "userSymbol": "AdminDirectory",
-        "version": "directory_v1",
-        "serviceId": "admin"
-      }
-    ]
+
   },
   "exceptionLogging": "STACKDRIVER",
   "runtimeVersion": "V8",

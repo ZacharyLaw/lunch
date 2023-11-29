@@ -26,15 +26,17 @@ function grab(v) {
       var table = "<table><thead><th>Name</th><th>Balance</th><th>Email</th><th>Admin</th></thead><tbody>";
       data.forEach(cells => table += `<tr><td>${cells[0]}</td><td>${cells[1]}</td><td>${cells[2]}</td><td>${cells[3]}</td></tr>`);
       return table + "</tbody></table>";
-    case 'tableAndUser':
-      var data = SpreadsheetApp.getActive().getSheetByName("Statement").getRange("A:D").getValues().slice(1, SpreadsheetApp.getActive().getSheetByName("Statement").getLastRow());
-      var table = "<table><thead><th>Name</th><th>Balance</th><th>Email</th></thead><tbody>";
-      data.forEach(cells => table += `<tr><td>${cells[0]}</td><td>${cells[1]}</td><td>${cells[2]}</td></tr>`);
-      return [table + "</tbody></table>",Session.getActiveUser().getEmail()];
+    case 'tableAndUser':return [grab('table'),grab('user')];
     default:return -1;
   }
 }
-
+function register(newuser,name){
+   sheet = SpreadsheetApp.getActive().getSheetByName("Statement");
+  sheet.appendRow([name,0,newuser])
+ sheet.getRange("D" + sheet.getLastRow()).insertCheckboxes();
+ sheet.getDataRange().offset(1, 0, sheet.getLastRow()- 1).sort([{ column: 2, ascending: true }]);
+  return grab('table')
+}
 
 function alive(arg){
     console.log(arg);
@@ -42,10 +44,7 @@ function alive(arg){
 }
 function sort(){
   var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-  var range = sheet.getDataRange();
-  var headerRows = 1; // Number of header rows
-  var sortColumn = 2; // Column B
-  range.offset(headerRows, 0, range.getNumRows() - headerRows).sort({ column: sortColumn, ascending: true });
+  sheet.getDataRange().offset(1, 0, sheet.getLastRow()- 1).sort([{ column: 2, ascending: true }]);
 }
 function update(rows,receipt,sender,historyRecord) {
    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
