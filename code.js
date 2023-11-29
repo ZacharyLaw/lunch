@@ -42,6 +42,16 @@ function alive(arg){
     console.log(arg);
   return 'good job';
 }
+function ChangeName(email,newname){
+    var sheet = SpreadsheetApp.getActive().getSheetByName("Statement");
+    var data = sheet.getDataRange().getValues();
+    for (var i = 0; i < data.length; i++) {
+      if (data[i][2] === email) {
+        sheet.getRange(i + 1, 1).setValue(newname);
+        break;
+      }
+    }
+}
 function sort(){
   var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
   sheet.getDataRange().offset(1, 0, sheet.getLastRow()- 1).sort([{ column: 2, ascending: true }]);

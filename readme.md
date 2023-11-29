@@ -62,13 +62,14 @@ Refresh [Lunch Balance Site](https://sites.google.com/peplink.com/lunch) to see 
 
 ✅ Auto Add Acc
 
+✅ Change Self Username
+
 ☐ Lunch Balance Support Attachments? Upload file to my google drive with Google Apps Script (NO FORM IN GOOGLE)
 
 ☐ Private Cache for Recent Restaurant / Debitors / Expense Title
 
 ☐ Weekly/Monthly/Yearly Lunch Expense Analysis
 
-☐ Change Self Username
 
 
 
