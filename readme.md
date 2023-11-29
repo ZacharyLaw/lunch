@@ -10,6 +10,13 @@
 
 [Phoebe Figma UI/UX Sketch](https://www.figma.com/file/Ya1LfDaUotjncmGYSUjkFR/Intranet?type=design&node-id=26%3A2&mode=dev)
 
+[Google Site to embed and static URL](https://sites.google.com/d/1QP2lPVTie2sxlFiG-_xIkvAbCF_fo_Mc/p/1zfnLPP03dsRHqD9nEwSlbFDHZeGkkZxh/edit)
+
+[Google App Script Dev/Head Stage](https://script.google.com/a/macros/peplink.com/s/AKfycbx0wPZ_cm3ObE9UeZkB3DOqgyLmgWdCm2lq8TZ5tbg/dev)
+
+Current (29Nov2023) Embeded Deploy ID `AKfycbyXT3hD1Hegy6u3eyIrkvYy6w68Kcc5s40z_PoD_k0flLUCGc97WSX5VkrbyLbGrZBo`
+https://script.google.com/a/macros/peplink.com/s/AKfycbyXT3hD1Hegy6u3eyIrkvYy6w68Kcc5s40z_PoD_k0flLUCGc97WSX5VkrbyLbGrZBo/exec
+
 ## Switch to Admin Accounts (Peplink,Peplink-LT,Resigned Staff)
 Go to [Google Sheet (Database)](https://docs.google.com/spreadsheets/d/1pU4uWo6HQUNyoJ5C7ZLx-tJ1Pk0Vvxsmgc04hw0UWtw/edit?usp=sharing) > Statement Sheet > Your account row > Tick Admin Checkbox
 
