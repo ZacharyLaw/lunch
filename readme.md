@@ -28,6 +28,11 @@ Use Incognito Window Browser, Login [Google App Script Triggers](https://script.
 
 Note: Only Trigger Owner can edit/delete trigger
 
+## When Google App Script Codes edited
+To reflect update to sites.google.com... Go to [Google App Script (Backend)](https://script.google.com/u/0/home/projects/1N0tAoXCfwq_vJlkoANn86k8q0ACPve27Ad4i-HdEn6Z-tyRe0K5pVb2X/edit) > top right corner Deploy > New Deployment > Deploy > Copy Web app URL > Go to [Google Site Editor](https://sites.google.com/d/1QP2lPVTie2sxlFiG-_xIkvAbCF_fo_Mc/p/1zfnLPP03dsRHqD9nEwSlbFDHZeGkkZxh/edit) > Right Side Click Embed > Paste URL > Insert > Top Right Publish
+
+Refresh [Lunch Balance Site](https://sites.google.com/peplink.com/lunch) to see if its in effect
+
 ## Future Plans
 ✅ Embed in Intranet/Google Site (XFrameOptionsMode)
 
@@ -43,9 +48,11 @@ Note: Only Trigger Owner can edit/delete trigger
 
 ✅ Lunch Balance UI / UX
 
-☐ Checkbox to change to peplink@peplink.com
+✅ Join Pep Org/Enterprise github
 
-☐ Documentation of future maintenance and approach method
+✅ Checkbox to change to peplink@peplink.com
+
+✅ Documentation of future maintenance and approach method
 
 ☐ Lunch Balance Support Attachments? Upload file to my google drive with Google Apps Script (NO FORM IN GOOGLE)
 
@@ -53,7 +60,8 @@ Note: Only Trigger Owner can edit/delete trigger
 
 ☐ Weekly/Monthly/Yearly Lunch Expense Analysis
 
-☐ Join Pep Org/Enterprise github
+☐ Auto Add Acc
+
 
 
 ## Un-doable

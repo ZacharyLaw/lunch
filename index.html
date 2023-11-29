@@ -163,9 +163,7 @@ background-color: #7b7b7b;
 .v.collapsed::before {
   transform: rotate(90deg);
 }
-.statement.collapsed{
-	
-}
+
 .v.collapsed::before{
 	position: absolute;
 	top: 50%;
@@ -198,11 +196,12 @@ line-height: 3;
 	align-items: center;
 	justify-items: start;
 	}
-	.statement td:nth-child(3) ,.statement th:nth-child(3) {display: none;}
+	.statement td:nth-child(3) ,.statement th:nth-child(3),.statement td:nth-child(4) ,.statement th:nth-child(4) {display: none;}
 	#his i{font-size: medium;}
 	h1 i{font-size: smaller;}
 	label{margin: 0;}
-	#titleInput{width: 100%;}
+	#titleInput{width: 100%;
+		padding-left: 5%;}
 	div.filter.dropdown-item{
 		position: fixed;
     background-color: white;
@@ -213,6 +212,7 @@ line-height: 3;
 	}
 	div.dropdown-menu.show{
 		padding-top: 10px;
+		width: 140%
 	}
 	.filter-multi-select .dropdown-item {
     width: 10vw;
@@ -276,7 +276,21 @@ span.item{
   cursor: not-allowed!important;
 }
 #sw{
-	margin: 5px;
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+	width: auto;
+	height: auto;
+}
+#sw input{
+	display:inline;
+}
+label{
+	align-self: start;
+
+}
+.sw{
+	display: none!important;
 }
 @media only screen and (max-width: 700px){
 							.v.collapsed::before{
@@ -324,7 +338,13 @@ span.item{
 			
 			<label for=email>Your are:</label><p id=email><?=grab('user')?></p>
 			<label for=bal>Balance:</label>	<p id=bal></p>
-			<label for=sw>Switch to Peplink Account</label><input id=sw type="checkbox">
+			<label for=sw class=sw>Switch to Account</label>
+			<aside id=sw class=sw>
+				<input type=checkbox value=account+HQ@peplink.com>  peplink <br>
+				<input type=checkbox value=account+LT@peplink.com>  Peplink-LT <br>
+				<input type=checkbox value=account+Resigned@peplink.com>  Resigned Staff <br>
+			</aside>
+			
 			<label for=titleInput>Restaurant (Optional):</label><input id=titleInput>
 			<label for=deb style=align-self:normal>Debitor(s):</label>
 			<div id=deb>
@@ -408,10 +428,12 @@ console.log('c.recentD',c.recentD)
 			$('.statement').html(<?=grab('table')?>).promise().done(function () {
 		
 				user=<?=grab('user')?>;
-				$('#sw').on('change', function() {
+				realuser=user
+				if (lookup(user,2,3)=='true') $('.sw').removeClass('sw')
+				$('#sw input').on('change', function() {
 						if ($(this).is(':checked')) {
 						prevuser=user
-						user='account+HQ@peplink.com'
+						user=$(this).val()
 						$('#email').html(user)
 						$('#bal').html(lookup(user,2,1))
 						$('.marked-row').removeClass('marked-row')
@@ -421,20 +443,22 @@ console.log('c.recentD',c.recentD)
 						select.deselectAll()
 						$('.t tfoot td:nth-child(2)').text('0')
 						$('table tbody.distribute').html('')
-
 						} else {
-						user=prevuser
+						user=realuser
 						$('#email').html(user)
 						$('#bal').html(lookup(user,2,1))
 						$('.marked-row').removeClass('marked-row')
 						$('.statement tbody tr').each(function () {if ($(this).find('td:nth-child(3)').text() === user) $(this).addClass('marked-row')})
 						select.disableOption(user)
-						select.enableOption('account+HQ@peplink.com')
+						select.enableOption($(this).val())
 						select.deselectAll()
 						$('.t tfoot td:nth-child(2)').text('0')
 						$('table tbody.distribute').html('')
 						}
 					});
+					$('input[type="checkbox"]').on('change', function() {
+							$('input[type="checkbox"]').not(this).prop('checked', false);
+							});
 					initStatement()
 					$('.v').click(()=>{$('.v,.statement').toggleClass('collapsed');$('.statement').toggle("slide", {direction:'right'})})
 					$(document).on('click', '.statement thead th', function () {

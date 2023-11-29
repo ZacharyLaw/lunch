@@ -22,12 +22,12 @@ function grab(v) {
     case 'getActiveUser':return Session.getActiveUser()
     case 'getUsername':return Session.getActiveUser().getUsername()
     case 'table':
-      var data = SpreadsheetApp.getActive().getSheetByName("Statement").getRange("A:C").getValues().slice(1, SpreadsheetApp.getActive().getSheetByName("Statement").getLastRow());
-      var table = "<table><thead><th>Name</th><th>Balance</th><th>Email</th></thead><tbody>";
-      data.forEach(cells => table += `<tr><td>${cells[0]}</td><td>${cells[1]}</td><td>${cells[2]}</td></tr>`);
+      var data = SpreadsheetApp.getActive().getSheetByName("Statement").getRange("A:D").getValues().slice(1, SpreadsheetApp.getActive().getSheetByName("Statement").getLastRow());
+      var table = "<table><thead><th>Name</th><th>Balance</th><th>Email</th><th>Admin</th></thead><tbody>";
+      data.forEach(cells => table += `<tr><td>${cells[0]}</td><td>${cells[1]}</td><td>${cells[2]}</td><td>${cells[3]}</td></tr>`);
       return table + "</tbody></table>";
     case 'tableAndUser':
-      var data = SpreadsheetApp.getActive().getSheetByName("Statement").getRange("A:C").getValues().slice(1, SpreadsheetApp.getActive().getSheetByName("Statement").getLastRow());
+      var data = SpreadsheetApp.getActive().getSheetByName("Statement").getRange("A:D").getValues().slice(1, SpreadsheetApp.getActive().getSheetByName("Statement").getLastRow());
       var table = "<table><thead><th>Name</th><th>Balance</th><th>Email</th></thead><tbody>";
       data.forEach(cells => table += `<tr><td>${cells[0]}</td><td>${cells[1]}</td><td>${cells[2]}</td></tr>`);
       return [table + "</tbody></table>",Session.getActiveUser().getEmail()];
@@ -46,7 +46,6 @@ function sort(){
   var headerRows = 1; // Number of header rows
   var sortColumn = 2; // Column B
   range.offset(headerRows, 0, range.getNumRows() - headerRows).sort({ column: sortColumn, ascending: true });
-
 }
 function update(rows,receipt,sender,historyRecord) {
    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
@@ -55,7 +54,7 @@ function update(rows,receipt,sender,historyRecord) {
   var emailColumn = 3; // Column C
 
   var lastRow = sheet.getLastRow();
-  var range = sheet.getRange(2, nameColumn, lastRow - 1, 3);
+  var range = sheet.getRange(2, nameColumn, lastRow - 1, 4);
   var data = range.getValues();
 
   for (var i = 0; i < rows.length; i += 2) {
