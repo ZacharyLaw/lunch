@@ -186,6 +186,7 @@ float: right;
 line-height: 3;
 	}
 	.in{
+	width: 100%;
 		display:grid;
     grid-template-columns: max-content auto;
 	align-items: center;
@@ -239,13 +240,14 @@ input{
       border-radius: 10px!important;
 }
 hr {
-	margin: 5px;
-  width: 16px!important;
-  height: 16px!important;
+  width: 10px!important;
+  height: 10px!important;
   border: 10px solid #ccc!important;
   border-top-color: #000!important;
   border-radius: 50%!important;
   animation: spin 1s infinite linear!important;
+  margin-top: 0!important;
+  margin-bottom: 0!important;
 }
 .s p{
 	margin: 0;
@@ -385,10 +387,10 @@ div.dropdown-item.custom-control:has(label.custom-control-label:contains("Select
 				<table>
 					<thead>
 						<tr>
-							<td colspan=3>Lunch Balance Reciept</td>
+							<td colspan=3><a href=https://sites.google.com/peplink.com/lunch>Lunch Balance Reciept</a></td>
 						</tr>
 						<tr>
-							<td>Title:</td>
+							<td>Restaurant:</td>
 							<td colspan=2 class=titleOutput></td>
 						</tr>
 						<tr>
@@ -410,6 +412,13 @@ div.dropdown-item.custom-control:has(label.custom-control-label:contains("Select
 		console.log("%cLink to readme.md: https://bitbucket.org/peplinkec/lunch-balance/src/master/readme.md", "font-weight: bold;color: red; font-size:50px; text-decoration: underline;");
 		//put data in div
 		var select
+		function validate(tis) {
+ var prev = tis.getAttribute("data-prev");
+  prev = (prev != '') ? prev : '';
+  if (Math.round(tis.value*100)/100!=tis.value)
+  tis.value=prev;
+  tis.setAttribute("data-prev",tis.value)
+}
 		function initStatement() {
 			$('.statement tbody tr').each(function () {if ($(this).find('td:nth-child(3)').text() === user) $(this).addClass('marked-row')})
 			$('.statement th').each(function () { $(this).html($(this).html() + '<i class="material-icons" style="vertical-align: middle">unfold_more</i>') });
@@ -550,10 +559,20 @@ console.log('c.recentD',c.recentD)
 							$('.t,.s').show()
 							$('.t tfoot td:nth-child(2)').text('0')
 							console.log('add', e, lookup(e,2,0))
-							$('table tbody.distribute').replaceWith($('<tbody class="distribute">').append(getJson().map(e => $('<tr>').append($('<td>').text(lookup(e,2,0)), $('<td>').append($('<input type="number" min="0" value="default 0" step="10">'))))));
+							$('table tbody.distribute').replaceWith($('<tbody class="distribute">').append(getJson().map(e => $('<tr>').append($('<td>').text(lookup(e,2,0)), $('<td>').append($('<input type="number"  oninput="validate(this)">'))))));
 						})
+						$(document).on('blur unfocus', '.t input', function() {
+							console.log('unfocus')
+							console.log($(this).val())
+    if ($(this).val()==="") {
+		console.log('overwrite')
+      $(this).val('');
+    }
+  });
+
 						$(document).on('input', '.t input', function () {
-							$('.t tfoot td:nth-child(2)').text($('.t tbody.distribute tr input').toArray().reduce((total, input) => total + (parseFloat($(input).val()) || 0), 0));
+							$('.t tfoot td:nth-child(2)').text($('.t tbody.distribute tr input').toArray().reduce((acc, el) => acc + (v => !isNaN(v) ? Math.round(v * 100) / 100 : 0)(parseFloat($(el).val())), 0));
+							console.log('sum')
 							if ($('.t tfoot td:nth-child(2)').text()=='0') $('.s').prop('disabled',true)
 							else $('.s').prop('disabled',false)
 						})
