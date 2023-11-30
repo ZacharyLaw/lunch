@@ -568,7 +568,7 @@ console.log('c.recentD',c.recentD)
 							receiptRow = ''
 							sender=[user]
 							for (var i = 0; i < rows.length; i += 2) {
-								receiptRow += `<tr><td>${lookup(rows[i], 2, 0)}</td><td>${Number(lookup(rows[i], 2, 1)) - Number(rows[i + 1])}</td><td>(${rows[i + 1]<0 ? '-'+rows[i + 1]:Math.abs(rows[i + 1])})</td></tr>`
+								receiptRow += `<tr><td>${lookup(rows[i],2,0)}</td><td>${Number(lookup(rows[i],2,1))-Number(rows[i+1])}</td><td>(${rows[i+1]<0?rows[i+1]:Math.abs(rows[i+1])})</td></tr>`
 								sender.push(rows[i])
 							}
 							$('.reciept tbody').html(`<tr><td>${lookup(user, 2, 0)}</td><td>${Number(lookup(user, 2, 1)) + Number(total)}</td><td>(${total})</td></tr>${receiptRow}`)
