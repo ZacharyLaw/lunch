@@ -292,10 +292,17 @@ label{
 	padding:0;
 	margin: 0;
 	font-size:large;
+	transform: scaleX(-1);
 }
 #user button:hover{
 	font-weight: bold;
 	cursor: pointer;
+}
+div.items.dropdown-item{
+	padding-top: 35px;
+}
+div.dropdown-item.custom-control:has(label.custom-control-label:contains("Select All")) {
+  display: none;
 }
 @media only screen and (max-width: 700px){
 							.v.collapsed::before{
@@ -452,16 +459,20 @@ console.log('c.recentD',c.recentD)
 						$(this).find('button').remove();
 					}
 					);
-					$(document).on('click', '#user button,#user', function () {
-						$('#user').html(`<input value="${lookup(user,2,0)}" type=text>`)
+					$(document).on('click', '#user, #user button', function () {
+						if($(this)!=$('#user input') && $('#user input').length==0)
+						{console.log('triggered with length 0')
+						window.prevusername=lookup(user,2,0)
+						$('#user').html(`<input value="${prevusername}" type=text>`)
 						$('#user input').focus()
-						$('#user').css('background-color','none')	
+						$('#user').css('background-color','none')}	
 					})
 					$(document).on('input', '#user input', function () {
 						$(`.statement .marked-row td:first-child`).html($(this).val())
 					})
-						$(document).on('blur', '#user input', function () {
+						$(document).on('focusout', '#user input', function () {
 							$('#user').html($(this).val())
+							if(window.prevusername==$(this).val()) return 
 		google.script.run.withSuccessHandler(r => {console.log('unfocus', r)}).ChangeName(user,$(this).val())
 						})
 
@@ -537,6 +548,7 @@ console.log('c.recentD',c.recentD)
 						$('#debitors').show()
 						select = $('#debitors').filterMultiSelect({ placeholderText: 'Select Debitors...' })
 						select.disableOption(user)
+						$('div.dropdown-item.custom-control:has(label.custom-control-label:contains("Select All"))').hide()
 						var getJson=()=>$.fn.filterMultiSelect.applied.map(e=>JSON.parse(e.getSelectedOptionsAsJson(true))).reduce((p,c)=>p.concat(c.debitor),[])
 						$('#debitors').on('optionselected optiondeselected', function (e) {
 							$('.t,.s').show()

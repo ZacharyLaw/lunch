@@ -71,6 +71,8 @@ Refresh [Lunch Balance Site](https://sites.google.com/peplink.com/lunch) to see 
 
 ✅ Change Self Username
 
+✅ Fix Searcher
+
 ☐ Lunch Balance Support Attachments? Upload file to my google drive with Google Apps Script (NO FORM IN GOOGLE)
 
 ☐ Private Cache for Recent Restaurant / Debitors / Expense Title
