@@ -1,4 +1,4 @@
-# [Lunch Balance](https://sites.google.com/peplink.com/lunch)
+# [<img src="icon.png" alt="i" width="30">Lunch Balance](https://sites.google.com/peplink.com/lunch)
 [![clasp](https://img.shields.io/badge/built%20with-clasp-4285f4.svg)](https://github.com/google/clasp)
 
 [Lunch Balance Site](https://sites.google.com/peplink.com/lunch)
