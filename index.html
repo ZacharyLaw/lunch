@@ -289,6 +289,7 @@ label{
 .sw{
 	display: none!important;
 }
+/*
 #user button{
 	background-color:none;
 	border: none;
@@ -301,6 +302,7 @@ label{
 	font-weight: bold;
 	cursor: pointer;
 }
+*/
 div.items.dropdown-item{
 	padding-top: 35px;
 }
@@ -351,7 +353,7 @@ div.dropdown-item.custom-control:has(label.custom-control-label:contains("Select
 				
 			<aside class=in>
 			
-			<label for=email>Your are:</label><p id=user title="Click to Edit"><?=grab('user')?></p>
+			<label for=email>Your are:</label><p id=user ><?=grab('user')?></p>
 			<label for=bal>Balance:</label>	<p id=bal></p>
 			<label for=sw class=sw>Switch to Account</label>
 			<aside id=sw class=sw>
@@ -387,7 +389,7 @@ div.dropdown-item.custom-control:has(label.custom-control-label:contains("Select
 				<table>
 					<thead>
 						<tr>
-							<td colspan=3><a href=https://sites.google.com/peplink.com/lunch>Lunch Balance Reciept</a></td>
+							<td colspan=3><a href=https://sites.google.com/peplink.com/lunch>Lunch Balance</a></td>
 						</tr>
 						<tr>
 							<td>Restaurant:</td>
@@ -457,7 +459,7 @@ console.log('c.recentD',c.recentD)
 							$('.statement tbody tr').each(function () {if ($(this).find('td:nth-child(3)').text() === user) $(this).addClass('marked-row')})})
 					}).register(user,name);
 				}
-
+/*
 				$('#user').hover(
 					function() {
 						$(this).append($('<button>').html('✎'));
@@ -486,7 +488,7 @@ console.log('c.recentD',c.recentD)
 		$('#user').html($(this).val())
 		google.script.run.withSuccessHandler(r => {console.log('unfocus', r)}).ChangeName(user,$(this).val())
     }
-  });
+  });*/
 				console.log('fullname?',user.replace(/@peplink\.com/g, ''))
 
 				if (lookup(user,2,3)=='true') $('.sw').removeClass('sw')
@@ -633,11 +635,14 @@ console.log('c.recentD',c.recentD)
 
 
 	
-<script>
-window.markerConfig = {project: '6565701e0c2e6514a4bd6dd2',source: 'snippet'};
+	<script>
+  window.markerConfig = {
+    project: '656d8222bc7f4cc5370a8d98', 
+    source: 'snippet'
+  };
+
 !function(e,r,a){if(!e.__Marker){e.__Marker={};var t=[],n={__cs:t};["show","hide","isVisible","capture","cancelCapture","unload","reload","isExtensionInstalled","setReporter","setCustomData","on","off"].forEach(function(e){n[e]=function(){var r=Array.prototype.slice.call(arguments);r.unshift(e),t.push(r)}}),e.Marker=n;var s=r.createElement("script");s.async=1,s.src="https://edge.marker.io/latest/shim.js";var i=r.getElementsByTagName("script")[0];i.parentNode.insertBefore(s,i)}}(window,document);
-</script>
-    
+</script>    
 </body>
 
 </html>
