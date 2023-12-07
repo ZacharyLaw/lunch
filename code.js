@@ -1,10 +1,6 @@
 function doGet() {
-  output=HtmlService.createTemplateFromFile('index').evaluate();
-  output.addMetaTag('viewport', 'width=device-width, initial-scale=1').setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
-
-  return output;
+  return HtmlService.createTemplateFromFile('index').evaluate().addMetaTag('viewport', 'width=device-width, initial-scale=1').setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }
-
 function cache(c) {
   var cache = CacheService.getUserCache();
 if(c){
@@ -12,9 +8,6 @@ if(c){
   return 'Completed'
 } else   return cache.get('Cache')
 }
-
-
-
 function grab(v) {
   switch (v) {
     case 'author':return Session.getEffectiveUser().getEmail()
@@ -53,7 +46,7 @@ function ChangeName(email,newname){
     }
 }
 function sort(){
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var sheet = SpreadsheetApp.getActive().getSheetByName("Statement");
   sheet.getDataRange().offset(1, 0, sheet.getLastRow()- 1).sort([{ column: 2, ascending: true }]);
 }
 function update(rows,receipt,sender,historyRecord) {
@@ -90,6 +83,27 @@ function update(rows,receipt,sender,historyRecord) {
     htmlBody: '<html>'+receipt+'</html>'
   });
 SpreadsheetApp.getActiveSpreadsheet().getSheetByName("History").insertRowsBefore(2, 1).getRange(2, 1, 1, historyRecord.length).setValues([historyRecord]);
-
+validate()
   return 'Update Successful!';
+}
+function validate(){
+  var sheet = SpreadsheetApp.getActive().getSheetByName("Statement");
+  var sum = sheet.getRange("B2:B").getValues().reduce(function(acc, row) {
+    return acc + (row[0] || 0); 
+  }, 0);
+  Logger.log("Sum of all employees statement is: " + sum.toFixed(2));
+  if (sum!=0){
+    var table = "<br><table><tr><th>Name</th><th>Balance</th></br>";
+    data=sheet.getRange("A:B").getValues().slice(1,sheet.getLastRow())
+    data.forEach(cells => table += "<tr>" + cells.map(cell => "<td>" + cell + "</td>").join("") + "</tr>");
+
+    MailApp.sendEmail({
+      to: 'mis@peplink.com',
+      subject: 'Lunch Balance Warming (Sum≠0)',
+      htmlBody: `<html><a href=https://sites.google.com/peplink.com/lunch>Lunch Balance Site</a><br>
+      <a href="https://docs.google.com/spreadsheets/d/1pU4uWo6HQUNyoJ5C7ZLx-tJ1Pk0Vvxsmgc04hw0UWtw/edit?usp=sharing">Lunch Balance Google Sheet (Database)</a>
+      <h1>Sum of all employees statement is ${sum.toFixed(2)}</h1><br><br>${table}</table></html>`
+    });
+  }
+
 }

@@ -71,9 +71,7 @@ Refresh [Lunch Balance Site](https://sites.google.com/peplink.com/lunch) to see 
 
 ✅ Change Self Username
 
-✅ Fix Searcher
-
-✅ Fix History
+✅ Lunch Balance Warming (Sum≠0) email to mis@peplink.com whenever transaction happened
 
 ☐ Lunch Balance Support Attachments? Upload file to my google drive with Google Apps Script (NO FORM IN GOOGLE)
 
