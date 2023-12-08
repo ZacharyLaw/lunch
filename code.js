@@ -88,11 +88,14 @@ validate()
 }
 function validate(){
   var sheet = SpreadsheetApp.getActive().getSheetByName("Statement");
-  var sum = sheet.getRange("B2:B").getValues().reduce(function(acc, row) {
-    return acc + (row[0] || 0); 
-  }, 0);
+  var sum = sheet.getRange("B2:B").getValues().reduce(function(a, r) {return a + (r[0] || 0);}, 0);
   Logger.log("Sum of all employees statement is: " + sum.toFixed(2));
-  if (sum!=0){
+if (sum.toFixed(2) === 0) {
+  console.log("The variable is 0");
+} else if (String(sum.toFixed(2)) === '-0.00') {
+  console.log("The variable is -0.00");
+}
+else{
     var table = "<br><table><tr><th>Name</th><th>Balance</th></br>";
     data=sheet.getRange("A:B").getValues().slice(1,sheet.getLastRow())
     data.forEach(cells => table += "<tr>" + cells.map(cell => "<td>" + cell + "</td>").join("") + "</tr>");

@@ -1,7 +1,13 @@
 {
   "timeZone": "Asia/Hong_Kong",
   "dependencies": {
-
+    "enabledAdvancedServices": [
+      {
+        "userSymbol": "AdminDirectory",
+        "version": "directory_v1",
+        "serviceId": "admin"
+      }
+    ]
   },
   "exceptionLogging": "STACKDRIVER",
   "runtimeVersion": "V8",

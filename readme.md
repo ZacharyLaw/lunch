@@ -14,7 +14,7 @@
 
 [Google App Script Dev/Head Stage](https://script.google.com/a/macros/peplink.com/s/AKfycbx0wPZ_cm3ObE9UeZkB3DOqgyLmgWdCm2lq8TZ5tbg/dev)
 
-Current (29Nov2023) Embeded Deploy ID `AKfycbyXT3hD1Hegy6u3eyIrkvYy6w68Kcc5s40z_PoD_k0flLUCGc97WSX5VkrbyLbGrZBo`
+Current (7Dec2023) Embeded Deploy ID `AKfycbyXT3hD1Hegy6u3eyIrkvYy6w68Kcc5s40z_PoD_k0flLUCGc97WSX5VkrbyLbGrZBo`
 https://script.google.com/a/macros/peplink.com/s/AKfycbyXT3hD1Hegy6u3eyIrkvYy6w68Kcc5s40z_PoD_k0flLUCGc97WSX5VkrbyLbGrZBo/exec
 
 ## Switch to Admin Accounts (Peplink,Peplink-LT,Resigned Staff)
