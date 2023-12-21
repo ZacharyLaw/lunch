@@ -1,4 +1,4 @@
-function sentEmail() {
+function WeeklySentEmail() {
   var table = "<html><body><br><table><tr><th>Name</th><th>Balance</th></br>";
   getData().forEach(cells => table += "<tr>" + cells.map(cell => "<td>" + cell + "</td>").join("") + "</tr>");
   table += "</table></body></html>";
@@ -11,5 +11,5 @@ function sentEmail() {
 }
 
 function getData() {
-  return SpreadsheetApp.getActive().getSheetByName("Statement").getRange("A:B").getValues().slice(1, SpreadsheetApp.getActive().getSheetByName("Statment").getLastRow());
+  return SpreadsheetApp.getActive().getSheetByName("Statement").getRange("A:B").getValues().slice(1, SpreadsheetApp.getActive().getSheetByName("Statement").getLastRow());
 }

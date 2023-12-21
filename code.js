@@ -1,3 +1,5 @@
+var statement=SpreadsheetApp.getActive().getSheetByName("Statement")
+
 function doGet() {
   return HtmlService.createTemplateFromFile('index').evaluate().addMetaTag('viewport', 'width=device-width, initial-scale=1').setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }
@@ -15,7 +17,7 @@ function grab(v) {
     case 'getActiveUser':return Session.getActiveUser()
     case 'getUsername':return Session.getActiveUser().getUsername()
     case 'table':
-      var data = SpreadsheetApp.getActive().getSheetByName("Statement").getRange("A:D").getValues().slice(1, SpreadsheetApp.getActive().getSheetByName("Statement").getLastRow());
+      var data = statement.getRange("A:D").getValues().slice(1, statement.getLastRow());
       var table = "<table><thead><th>Name</th><th>Balance</th><th>Email</th><th>Admin</th></thead><tbody>";
       data.forEach(cells => table += `<tr><td>${cells[0]}</td><td>${cells[1]}</td><td>${cells[2]}</td><td>${cells[3]}</td></tr>`);
       return table + "</tbody></table>";
@@ -24,39 +26,31 @@ function grab(v) {
   }
 }
 function register(newuser,name){
-   sheet = SpreadsheetApp.getActive().getSheetByName("Statement");
-  sheet.appendRow([name,0,newuser])
- sheet.getRange("D" + sheet.getLastRow()).insertCheckboxes();
- sheet.getDataRange().offset(1, 0, sheet.getLastRow()- 1).sort([{ column: 2, ascending: true }]);
+   statement.appendRow([name,0,newuser])
+   statement.getRange("D"+statement.getLastRow()).insertCheckboxes();
+   statement.getDataRange().offset(1,0,statement.getLastRow()-1).sort([{column:2,ascending:true}]);
   return grab('table')
 }
-
-function alive(arg){
-    console.log(arg);
-  return 'good job';
-}
 function ChangeName(email,newname){
-    var sheet = SpreadsheetApp.getActive().getSheetByName("Statement");
-    var data = sheet.getDataRange().getValues();
+    var data = statement.getDataRange().getValues();
     for (var i = 0; i < data.length; i++) {
       if (data[i][2] === email) {
-        sheet.getRange(i + 1, 1).setValue(newname);
+        statement.getRange(i + 1, 1).setValue(newname);
         break;
       }
     }
 }
 function sort(){
-  var sheet = SpreadsheetApp.getActive().getSheetByName("Statement");
-  sheet.getDataRange().offset(1, 0, sheet.getLastRow()- 1).sort([{ column: 2, ascending: true }]);
+  statement.getDataRange().offset(1, 0, sheet.getLastRow()- 1).sort([{ column: 2, ascending: true }]);
 }
 function update(rows,receipt,sender,historyRecord) {
-   var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  console.log(rows,receipt,sender,historyRecord)
   var nameColumn = 1; // Column A
   var sumColumn = 2; // Column B
   var emailColumn = 3; // Column C
 
-  var lastRow = sheet.getLastRow();
-  var range = sheet.getRange(2, nameColumn, lastRow - 1, 4);
+  var lastRow = statement.getLastRow();
+  var range = statement.getRange(2, nameColumn, lastRow - 1, 4);
   var data = range.getValues();
 
   for (var i = 0; i < rows.length; i += 2) {
@@ -65,7 +59,7 @@ function update(rows,receipt,sender,historyRecord) {
 
     for (var j = 0; j < data.length; j++) {
       if (data[j][emailColumn - 1] === emailToFind) {
-        data[j][sumColumn - 1] = parseFloat( data[j][sumColumn - 1]) - valueToSubtract;
+        data[j][sumColumn - 1] = (parseFloat(data[j][sumColumn - 1]) - valueToSubtract).toFixed(2);
         break;
       }
     }
@@ -73,7 +67,7 @@ function update(rows,receipt,sender,historyRecord) {
 
   range.setValues(data);
 
-  var range = sheet.getDataRange();
+  var range = statement.getDataRange();
   range.offset(1, 0, range.getNumRows() - 1).sort({ column: 2, ascending: true });
 
   Logger.log("Data updated successfully.");
@@ -87,19 +81,23 @@ validate()
   return 'Update Successful!';
 }
 function validate(){
-  var sheet = SpreadsheetApp.getActive().getSheetByName("Statement");
-  var sum = sheet.getRange("B2:B").getValues().reduce(function(a, r) {return a + (r[0] || 0);}, 0);
+  var range=statement.getRange('B2:B')
+  range.setValues(range.getValues().map(r=>[parseFloat(r[0]).toFixed(2)]));
+  var sum = statement.getRange("B2:B").getValues().reduce(function(a, r) {return a + (r[0] || 0);}, 0);
+  sum=parseFloat(sum)
   Logger.log("Sum of all employees statement is: " + sum.toFixed(2));
 if (sum.toFixed(2) === 0) {
   console.log("The variable is 0");
 } else if (String(sum.toFixed(2)) === '-0.00') {
   console.log("The variable is -0.00");
+} else if (String(sum.toFixed(2)) === '0.00') {
+  console.log("The variable is 0.00");
 }
 else{
     var table = "<br><table><tr><th>Name</th><th>Balance</th></br>";
-    data=sheet.getRange("A:B").getValues().slice(1,sheet.getLastRow())
+    data=statement.getRange("A:B").getValues().slice(1,statement.getLastRow())
     data.forEach(cells => table += "<tr>" + cells.map(cell => "<td>" + cell + "</td>").join("") + "</tr>");
-
+    if (false) return
     MailApp.sendEmail({
       to: 'mis@peplink.com',
       subject: 'Lunch Balance Warming (Sum≠0)',

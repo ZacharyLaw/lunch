@@ -3,6 +3,8 @@
 
 <head>
 	<base target="_top" />
+	<title>Lunch Balance [DEV]</title>
+
 </head>
 
 <body>
@@ -18,6 +20,7 @@
 				margin: 0;
 				overflow: hidden;
 				height: 100vh;
+				-webkit-transition-duration: 1s;
 			}
 
 			.statement {
@@ -34,7 +37,7 @@
 
 			.marked-row,
 			#user ,#bal{
-				background-color: yellow;
+				background-color: yellow!important;
 				color: black;
 				margin: 0;
 			}
@@ -50,30 +53,17 @@
 			}
 
 			.t,.t td,.t th {
-				border: 1px black solid;
-				
-				width: fit-content;
 				border-spacing: 0;
 			}
 			.t{
-				border-collapse: collapse;
         border-radius: 5px;
-        border-style: hidden; /* hide standard table (collapsed) border */
-        box-shadow: 0 0 0 1px #666; /* this draws the table border  */ 
-		    margin-top: 1%;
+		margin-top: 1%;
     margin-bottom: 1%;
+	max-height: 60vh;
+	overflow-y: auto;
 			}
-
-			.t input {
-				width: 100%;
-			}
-
-			
-			.t,
-			.s {
-				display: none;
-			}
-
+			.t input {width: 95%;}
+			.t,.s {display: none;}
 			.m {
 				margin: auto;
 				width: fit-content;
@@ -83,6 +73,7 @@
 				padding: 3vw;
 				box-shadow: 0 4px 8px 0 #00000033, 0 6px 20px 0 #00000030;
 				position: relative;
+				max-height: 100%;
 			}
 
 			.s {
@@ -106,6 +97,7 @@
 			}
 
 			.statement thead th {
+				white-space: nowrap;
 				position: sticky;
 				top: 0;
 				background-color: #f2f2f2;
@@ -177,9 +169,6 @@ background-color: #7b7b7b;
 	.dropdown{
 		width: 100%;
 	}
-	.t{
-		width: 100%;
-	}
 	#his{
 text-decoration: underline;
 float: right;
@@ -209,7 +198,7 @@ line-height: 3;
 	div.dropdown-menu.show{
 		padding-top: 10px;
 		width: auto;
-		min-width: 18vw;
+		min-width: 240px;
 
 	}
 	.filter-multi-select .dropdown-item {
@@ -224,14 +213,9 @@ line-height: 3;
     right: 0.5rem!important;
 
 }
-/*element.style {
-    transform: translate(290px, -50px);
-}*/
-
 .dropdown-menu{
 	max-height: 25vh!important;
 	width: auto!important;
-	
 }
 #deb{
 	width: 100%;
@@ -311,6 +295,93 @@ div.items.dropdown-item{
 div.dropdown-item.custom-control:has(label.custom-control-label:contains("Select All")) {
   display: none;
 }
+.distribute  tr{
+display: table;
+}
+/*
+#stay{
+	position: absolute;
+	right: 0;
+	background-color: white;
+}
+*/
+.t tbody{
+	display: block;
+	max-height: 50vh!important;
+	overflow-x: hidden!important;
+	overflow-y: auto!important;
+}
+.t thead, .t tbody tr,.t tfoot{
+	display: table;
+	table-layout: fixed!important;
+}
+.t thead,.t tfoot{
+	width: calc(100%-1em)!important;
+}
+.t{
+max-width: 100%!important;
+}
+.t footer{
+	font-weight: bold;
+}
+.distribute tr, .t tfoot,.t tfoot tr,.t thead,.t thead tr{
+	width:-webkit-fill-available ;
+}
+.t tr th:first-child,.t tr td:first-child{
+	width: calc(100%/2.2);
+}
+.t tbody td{
+	white-space: nowrap;
+}
+.t,.t tr{
+	border: 1px solid #ced4da;
+}
+.t input{
+	width: 95%;
+}
+.t tbody tr td:nth-child(2){
+	width: 100%;
+}
+
+.t tbody tr td:last-child{
+border-radius: 50%;
+text-align: center;
+display: block;
+width: 30px;
+float: right;
+}
+.t tbody tr td:last-child:hover{
+	background-color: red;
+	color: white;
+	cursor: pointer;
+}
+#D{
+	visibility: hidden;
+	position: relative;
+}
+#D:after{
+	width: 3vw;
+	height: 3vw;
+	padding: 0;
+	font-size:2vw;
+	visibility: visible;
+	border: none;
+	background-color: #7b7b7b;
+	position: absolute;
+	left: 0;
+	top: 0;
+	border-radius: 50%;
+	margin: 1vw;
+	content:'☾';
+	color: white;
+	font-weight: bold;
+}
+#D:hover{
+	cursor: pointer;
+}
+span.item {
+	background-color: #ffa500!important;
+}
 @media only screen and (max-width: 700px){
 							.v.collapsed::before{
 								z-index: 15;
@@ -334,7 +405,59 @@ div.dropdown-item.custom-control:has(label.custom-control-label:contains("Select
 							width: 100vw;
 								}
 }/*mobile*/
-		</style>
+.d *,.d .m {
+	background-color: black;
+	color:white;
+}
+.d .m ,.d .m *,.d .statement{
+	background-color: #1f1f1f;
+}
+.d .statement thead th, .d i {
+	background-color: #3c3c3c;
+}
+.d .statement tbody td{
+	background-color: #1f1f1f;
+}
+.d .marked-row td{
+	background-color: yellow!important;
+	color: black;
+}
+.d .filter-multi-select > .dropdown-menu{
+	background-color: #3c3c3c;
+}
+.d .filter-multi-select *{
+	background-color: #3c3c3c;
+
+}
+.d .filter-multi-select .dropdown-item .custom-control-label::before{
+background-color: #3c3c3c;
+}
+.d .form-control:focus{
+	background-color: #3c3c3c;
+}
+.d input.form-control{
+	border: none;
+}
+.d #D:after{
+	content:'☼' ;
+	color: white;
+}
+[data-color-scheme="dark"] {color-scheme: dark;}
+
+[data-color-scheme="light"] {color-scheme: light;}
+.d .statement tr:hover td {
+	background-color: #3c3c3c!important;
+}
+.d .s,.d .s p{
+	background-color: #ffa500;
+}
+.d .form-control{
+	color: white!important;
+}
+.d .t tbody tr td:last-child{
+color: white;
+}
+	</style>
 	</head>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
@@ -342,19 +465,16 @@ div.dropdown-item.custom-control:has(label.custom-control-label:contains("Select
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<script src="https://momentjs.com/downloads/moment.min.js"></script>
-
 	<link rel="stylesheet"
 		href="https://cdn.jsdelivr.net/gh/andreww1011/filter-multi-select/dist/filter_multi_select.css" />
 	<script
 		src="https://cdn.jsdelivr.net/gh/andreww1011/filter-multi-select/dist/filter-multi-select-bundle.min.js"></script>
 	<main>
+		<button id=D onclick="$('html').toggleClass('d')">D</button>
 		<div class=m>
 			<h1 style="display: inline;margin-right: 3vw;"><span class="material-symbols-outlined">wallet</span>&nbsp;Lunch Balance</h1>
 			<a href="javascript:void(0)" onclick="window.open('https://docs.google.com/spreadsheets/d/1pU4uWo6HQUNyoJ5C7ZLx-tJ1Pk0Vvxsmgc04hw0UWtw/edit#gid=205375985')" id=his>View History <i class=material-symbols-outlined>open_in_new</i></a>
-
-				
 			<aside class=in>
-			
 			<label for=email>Your are:</label><p id=user ><?=grab('user')?></p>
 			<label for=bal>Balance:</label>	<p id=bal></p>
 			<label for=sw class=sw>Switch to Account</label>
@@ -373,6 +493,8 @@ div.dropdown-item.custom-control:has(label.custom-control-label:contains("Select
 					<tr>
 						<th>Debitor(s)</th>
 						<th>Amount</th>
+						<th></th>
+
 					</tr>
 				</thead>
 				<tbody class=distribute></tbody>
@@ -380,6 +502,7 @@ div.dropdown-item.custom-control:has(label.custom-control-label:contains("Select
 					<tr>
 						<td>Total</td>
 						<td>0</td>
+						<th></th>
 					</tr>
 				</tfoot>
 			</table>
@@ -410,13 +533,23 @@ div.dropdown-item.custom-control:has(label.custom-control-label:contains("Select
 
 		</div><!--close m-->
 
-		<div><p class=v></p><div class=statement></div></div><!--<button class=v></button>-->
+		<div id=stay><p class=v></p><div class=statement></div></div><!--<button class=v></button>-->
 	</main>
 	<script>
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) $("html").attr("data-color-scheme", "dark").addClass("d");
+let isDark = $("html").attr("data-color-scheme") === "dark";
+$("#D").on("click", () => {
+$("html").attr("data-color-scheme", isDark ? "light" : "dark");
+isDark = !isDark;
+});
 		console.log("%cLink to readme.md: https://bitbucket.org/peplinkec/lunch-balance/src/master/readme.md", "font-weight: bold;color: red; font-size:50px; text-decoration: underline;");
 		//put data in div
-		var select
-		function validate(tis) {
+		if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+			$('html').addClass('d')
+		}
+	
+			var select
+		function V(tis) {
  var prev = tis.getAttribute("data-prev");
   prev = (prev != '') ? prev : '';
   if (Math.round(tis.value*100)/100!=tis.value)
@@ -434,6 +567,7 @@ div.dropdown-item.custom-control:has(label.custom-control-label:contains("Select
 			});
 			return result;
 		}
+		/*
 		var c='<?=cache()?>'
 		if (c) {
 			console.log('got from gas',c)
@@ -442,12 +576,15 @@ div.dropdown-item.custom-control:has(label.custom-control-label:contains("Select
 		else {
 	c={}
 	c.recentD=['stang@peplink.com']
-	google.script.run.withSuccessHandler(cache => {console.log('cache', cache)}).cache(c)
+	//google.script.run.withSuccessHandler(cache => {console.log('cache', cache)}).cache(c)
 console.log('c.recentD',c.recentD)
 	}
 		google.script.run.withSuccessHandler(cache => {console.log('cache', cache)}).cache()
-			$('.statement').html(<?=grab('table')?>).promise().done(function () {
-				user='<?=grab('user')?>';
+		*/
+		
+			$('.statement').html(`<?=grab('table')?>`.slice(1,-1)).promise().done(function () {
+				user=`<?=grab('user')?>`;
+				user=user.slice(1,-1)
 				realuser=user
 				if (lookup(user,2,2)!=false){
 					$('#user').html(lookup(user,2,0))
@@ -461,37 +598,38 @@ console.log('c.recentD',c.recentD)
 							$('.statement tbody tr').each(function () {if ($(this).find('td:nth-child(3)').text() === user) $(this).addClass('marked-row')})})
 					}).register(user,name);
 				}
-/*
-				$('#user').hover(
+					//#region <Edit Mode>
+					/*
+					$('#user').hover(
 					function() {
-						$(this).append($('<button>').html('✎'));
+					$(this).append($('<button>').html('✎'));
 					},
 					function() {
-						$(this).find('button').remove();
+					$(this).find('button').remove();
 					}
 					);
 					$(document).on('click', '#user, #user button', function () {
-						if($(this)!=$('#user input') && $('#user input').length==0){
-						window.prevusername=lookup(user,2,0)
-						$('#user').html(`<input value="${prevusername}" type=text>`)
-						$('#user input').focus()
-						$('#user').css('background-color','none')}	
+					if($(this)!=$('#user input') && $('#user input').length==0){
+					window.prevusername=lookup(user,2,0)
+					$('#user').html(`<input value="${prevusername}" type=text>`)
+					$('#user input').focus()
+					$('#user').css('background-color','none')}	
 					})
 					$(document).on('input', '#user input', function () {
-						$(`.statement .marked-row td:first-child`).html($(this).val())
+					$(`.statement .marked-row td:first-child`).html($(this).val())
 					})
-						$(document).on('focusout', '#user input', function () {
-							$('#user').html($(this).val())
-							if(window.prevusername==$(this).val()) return 
-		google.script.run.withSuccessHandler(r => {console.log('unfocus', r)}).ChangeName(user,$(this).val())
-						})
-						$(document).on('keypress', '#user input', function (event) {
-    if (event.which === 13) {
-		$('#user').html($(this).val())
-		google.script.run.withSuccessHandler(r => {console.log('unfocus', r)}).ChangeName(user,$(this).val())
-    }
-  });*/
-				console.log('fullname?',user.replace(/@peplink\.com/g, ''))
+					$(document).on('focusout', '#user input', function () {
+					$('#user').html($(this).val())
+					if(window.prevusername==$(this).val()) return 
+					google.script.run.withSuccessHandler(r => {console.log('unfocus', r)}).ChangeName(user,$(this).val())
+					})
+					$(document).on('keypress', '#user input', function (event) {
+					if (event.which === 13) {
+					$('#user').html($(this).val())
+					google.script.run.withSuccessHandler(r => {console.log('unfocus', r)}).ChangeName(user,$(this).val())
+					}
+					});*/
+					//#endregion
 
 				if (lookup(user,2,3)=='true') $('.sw').removeClass('sw')
 				$('#sw input').on('change', function() {
@@ -546,89 +684,88 @@ console.log('c.recentD',c.recentD)
 						$(this).data('ascending', !ascending);
 						table.find('tbody').empty().append(rows);
 					});
-					
+
 					//$('.statement tbody').find('tr').filter(function(){$(this).find('td:empty').length > 0}).remove();
 					$('.statement tbody tr').each(function () {
-						$('#debitors').append('<option value="' + $(this).find('td:nth-child(3)').text()+ '">' + $(this).find('td:first').text() + '</option>')
+						$('#debitors').append(`<option value="${$(this).find('td:nth-child(3)').text()}">${$(this).find('td:first').text()}</option>`)
 					}).promise().done(function () {
 						$('#debitors option[value=""]').remove();
-
-						//$(`option[value="${user}"]`).remove();
 						$('#debitors').show()
-						select = $('#debitors').filterMultiSelect({ placeholderText: 'Select Debitors...' })
+						select = $('#debitors').filterMultiSelect({ placeholderText:'Select Debitors...'})
 						select.disableOption(user)
 						$('div.dropdown-item.custom-control:has(label.custom-control-label:contains("Select All"))').hide()
 						var getJson=()=>$.fn.filterMultiSelect.applied.map(e=>JSON.parse(e.getSelectedOptionsAsJson(true))).reduce((p,c)=>p.concat(c.debitor),[])
-						$('#debitors').on('optionselected optiondeselected', function (e) {
+						$('#debitors').on('optionselected',(e)=>{
 							$('.t,.s').show()
-							$('.t tfoot td:nth-child(2)').text('0')
-							console.log('add', e, lookup(e,2,0))
-							$('table tbody.distribute').replaceWith($('<tbody class="distribute">').append(getJson().map(e => $('<tr>').append($('<td>').text(lookup(e,2,0)), $('<td>').append($('<input type="number"  oninput="validate(this)">'))))));
+							$('.distribute').append(`<tr data-e="${e.detail.value}"><td>${lookup(e.detail.value,2,0)}</td><td>-<input type="number" oninput="V(this)"></td><td>X</td></tr>`)
+						})
+						$('#debitors').on('optiondeselected',(e)=>{
+							$(`.t tr[data-e="${e.detail.value}"]`).remove();
+							recalc()
+								})
+						$(document).on('click', '.t tr td:nth-child(3)', function() {
+							e=$(this).closest('tr').data('e')
+							$(`.t tr[data-e="${$(this).closest('tr').data('e')}"]`).remove();
+							select.deselectOption(e)
+							recalc()
 						})
 						$(document).on('blur unfocus', '.t input', function() {
-							console.log('unfocus')
-							console.log($(this).val())
-    if ($(this).val()==="") {
-		console.log('overwrite')
-      $(this).val('');
-    }
+    if ($(this).val()==="") $(this).val('');
+		if ($(this).val().toString().includes('.')) if($(this).value.toString().split('.')[1].length>2)$(this).val(Number($(this).value.toFixed(2)));
   });
-
-						$(document).on('input', '.t input', function () {
-							$('.t tfoot td:nth-child(2)').text($('.t tbody.distribute tr input').toArray().reduce((acc, el) => acc + (v => !isNaN(v) ? Math.round(v * 100) / 100 : 0)(parseFloat($(el).val())), 0));
-							console.log('sum')
+  $(document).on('keydown', '.t input', function (e) {
+  console.log('limiter', $(this).val());
+  var Val = $(this).val();
+  if (Val.startsWith('0') || (Val.includes('.')&&Val.split('.')[1].length>1)||parseFloat(Val)>9999.99||parseFloat(Val)<-9999.99) {
+    $(this).val($(this).data('previousValue'));
+  } else {
+    $(this).data('previousValue', $(this).val());
+  }
+  recalc()
+});
+function recalc(){
+	$('.t tfoot td:nth-child(2)').text($('.t tbody.distribute tr input').toArray().reduce((A,E)=>A+(v=>!isNaN(v)?Math.round(v*100)/100:0)(parseFloat($(E).val())),0).toFixed(2)*(-1));
 							if ($('.t tfoot td:nth-child(2)').text()=='0') $('.s').prop('disabled',true)
 							else $('.s').prop('disabled',false)
-						})
+							if($('.t tbody tr').length==0) $('.t,.s').hide()
+}
+						$(document).on('input','.t input',()=>recalc())
 						$('.s').on('click', function () {
-							$(this).prop('disabled', true)
+							$(this).prop('disabled',true)
 							$('html').addClass('l')
-							const rows = $('.distribute tr').map((_, el) => $(el).find('td').map((_, el) => $(el).find('input').val() || lookup($(el).text(),0,2)).get()).get();
-							
+							const rows = $('.distribute tr').map(function(){return [$(this).data('e'),$(this).find('td:eq(1) input').val()]}).get();
 							$('.payer').html(lookup(user,2,0))
 							$('.titleOutput').html($('#titleInput').val())
-							total = $('.t tfoot td:nth-child(2)').text()
+							var total = -parseFloat($('.t tfoot td:nth-child(2)').text());
 							receiptRow = ''
 							sender=[user]
+							//compress this for loop
 							for (var i = 0; i < rows.length; i += 2) {
-								receiptRow += `<tr><td>${lookup(rows[i],2,0)}</td><td>${Number(lookup(rows[i],2,1))-Number(rows[i+1])}</td><td>(${rows[i+1]})</td></tr>`
+								receiptRow += `<tr><td>${lookup(rows[i],2,0)}</td><td>${(Number(lookup(rows[i],2,1))-Number(rows[i+1])).toFixed(2)}</td><td>(${Number(rows[i+1]).toFixed(2)})</td></tr>`
 								sender.push(rows[i])
 							}
-							$('.reciept tbody').html(`<tr><td>${lookup(user,2,0)}</td><td>${Number(lookup(user,2,1))+Number(total)}</td><td>(${total})</td></tr>${receiptRow}`)
-							guests=rows.map((e,i)=>i%2===0?`${lookup(e,2,0)}(${rows[i+1]})`:null).filter(Boolean).join(', ')
-							historyRecord=[moment().format('YYYY-MM-DD HH:mm:ss'),$('#titleInput').val(),lookup(user,2,0),guests,total];
+							$('.reciept tbody').html(`<tr><td>${lookup(user,2,0)}</td><td>${(Number(lookup(user,2,1))+Number(total)).toFixed(2)}</td><td>(${Number(total).toFixed(2)})</td></tr>${receiptRow}`)
+							guests=rows.map((e,i)=>i%2===0?`${lookup(e,2,0)} ${Number(lookup(e,2,1))+Number((rows[i+1]))}(${rows[i+1]})`:null).filter(Boolean).join(', ')
+							historyRecord=[moment().format('YYYY-MM-DD HH:mm:ss'),$('#titleInput').val(),lookup(user,2,0),guests,`${lookup(user,2,1)} (${total})`];
 							rows.splice(0, 0, user,  -total );
-							//console.log(rows, $('.reciept').html(),sender.join(','),historyRecord)//debug
-							//$('.out').html( '<br><br>' + $('.reciept').html()+'<br><a id="refresh-all-scripts" style="text-decoration:underline;color: #0000EE;cursor:pointer;">< Back</a>')//debug
-							//$('.out').show()
-
-							//return
 							google.script.run.withSuccessHandler(r => {
 								google.script.run.withSuccessHandler(table => { $('.statement').html(table).promise().done(function () {
 									$('.statement tbody tr').each(function () {if ($(this).find('td:nth-child(3)').text() === user) $(this).addClass('marked-row')})
+									$('#bal').html(lookup(user,2,1))
 									$('.statement th').each(function () { $(this).html($(this).html() + '<i class="material-icons" style="vertical-align: middle">unfold_more</i>') });})
 								 }).grab('table')
 								 $('.in').hide()
 								 $('html').removeClass('l')
 								 $('.out').show()
-								$('.out').html(r + '<br><br>' + $('.reciept').html()+'<br><a id="refresh-all-scripts" style="text-decoration:underline;color: #0000EE;cursor:pointer;">< Back</a>')
-								$('#refresh-all-scripts').on('click', function() {
-									$('.in').show()
-									$('.out').hide()
-									$('#debitors').show()
-									$('.reciept').hide()
-									$('.t,.s').show()
-									$('table tbody.distribute').html('')
-									$('#titleInput').html('')
+								$('.out').html(r + '<br><br>' + $('.reciept').html()+'<br><a id="back" style="text-decoration:underline;color: #0000EE;cursor:pointer;">< Back</a>')
+								$('#back').on('click', function() {
+									$('.in,#debitors,.t,.s').show()
+									$('.out,.t,.s,.reciept').hide()
+									$('table tbody.distribute,#titleInput').html('')
 									$('.t tfoot td:nth-child(2)').text('0')
-									$('#bal').html(lookup(user,2,1))
 									select.deselectAll()
-									
 									});
-
-									
 								$('.reciept').show()
-								
 							}).update(rows, $('.reciept').html(),sender.join(','),historyRecord);
 
 						});
