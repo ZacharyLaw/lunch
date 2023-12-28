@@ -184,6 +184,7 @@ line-height: 3;
 	.statement td:nth-child(3) ,.statement th:nth-child(3),.statement td:nth-child(4) ,.statement th:nth-child(4) {display: none;}
 	#his i{font-size: medium;}
 	h1 i{font-size: smaller;}
+	h1 {font-size: none;}
 	label{margin: 0;}
 	#titleInput{width: 100%;
 		padding-left: 5%;}
@@ -315,9 +316,7 @@ display: table;
 	display: table;
 	table-layout: fixed!important;
 }
-.t thead,.t tfoot{
-	width: calc(100%-1em)!important;
-}
+
 .t{
 max-width: 100%!important;
 }
@@ -327,6 +326,7 @@ max-width: 100%!important;
 .distribute tr, .t tfoot,.t tfoot tr,.t thead,.t thead tr{
 	width:-webkit-fill-available ;
 }
+.t tfoot{font-weight: bold!important;}
 .t tr th:first-child,.t tr td:first-child{
 	width: calc(100%/2.2);
 }
@@ -357,13 +357,13 @@ float: right;
 }
 #D{
 	visibility: hidden;
-	position: relative;
+	position: absolute;
 }
 #D:after{
-	width: 3vw;
-	height: 3vw;
+	width: 30px;
+	height: 30px;
 	padding: 0;
-	font-size:2vw;
+	font-size: 16px;;
 	visibility: visible;
 	border: none;
 	background-color: #7b7b7b;
@@ -375,6 +375,7 @@ float: right;
 	content:'☾';
 	color: white;
 	font-weight: bold;
+	padding-top: 2px;
 }
 #D:hover{
 	cursor: pointer;
@@ -382,29 +383,7 @@ float: right;
 span.item {
 	background-color: #ffa500!important;
 }
-@media only screen and (max-width: 700px){
-							.v.collapsed::before{
-								z-index: 15;
-								left:0;
-								transform: none;
-								content: ">";}
-							.v::before {
-								right: 0;
-								content: "<";}
-							.statement{display: none;}
-							.statement.collapsed{
-								overflow-y: scroll;
-								height: 100vh;
-								width: 100vw;
-								position: absolute;
-								top: 0;
-								left: 0;
-								background-color: white;	
-								display: block;}
-								.statement.collapsed table{
-							width: 100vw;
-								}
-}/*mobile*/
+
 .d *,.d .m {
 	background-color: black;
 	color:white;
@@ -457,6 +436,29 @@ background-color: #3c3c3c;
 .d .t tbody tr td:last-child{
 color: white;
 }
+@media only screen and (max-width: 700px){
+							.v.collapsed::before{
+								z-index: 15;
+								left:0;
+								transform: none;
+								content: ">";}
+							.v::before {
+								right: 0;
+								content: "<";}
+							.statement{display: none;}
+							.statement.collapsed{
+								overflow-y: scroll;
+								height: 100vh;
+								width: 100%;
+								position: absolute;
+								top: 0;
+								left: 0;
+								background-color: white;	
+								display: block;}
+								.statement.collapsed table{
+							width: 100vw;
+								}
+}/*mobile*/
 	</style>
 	</head>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -472,7 +474,7 @@ color: white;
 	<main>
 		<button id=D onclick="$('html').toggleClass('d')">D</button>
 		<div class=m>
-			<h1 style="display: inline;margin-right: 3vw;"><span class="material-symbols-outlined">wallet</span>&nbsp;Lunch Balance</h1>
+			<a href="https://sites.google.com/peplink.com/lunch" style="text-decoration: none;color: black;"><h1 style="display: inline;margin-right: 3vw;" ><span class="material-symbols-outlined">wallet</span>&nbsp;Lunch Balance</h1></a>
 			<a href="javascript:void(0)" onclick="window.open('https://docs.google.com/spreadsheets/d/1pU4uWo6HQUNyoJ5C7ZLx-tJ1Pk0Vvxsmgc04hw0UWtw/edit#gid=205375985')" id=his>View History <i class=material-symbols-outlined>open_in_new</i></a>
 			<aside class=in>
 			<label for=email>Your are:</label><p id=user ><?=grab('user')?></p>
@@ -499,11 +501,11 @@ color: white;
 				</thead>
 				<tbody class=distribute></tbody>
 				<tfoot>
-					<tr>
+					<tr><b>
 						<td>Total</td>
 						<td>0</td>
 						<th></th>
-					</tr>
+					</b></tr>
 				</tfoot>
 			</table>
 			</div><!--id deb-->
@@ -662,7 +664,7 @@ console.log('c.recentD',c.recentD)
 							$('input[type="checkbox"]').not(this).prop('checked', false);
 							});
 					initStatement()
-					$('.v').click(()=>{$('.v,.statement').toggleClass('collapsed');$('.statement').toggle("slide", {direction:'right'})})
+					$('.v').click(()=>{$('.v,.statement').toggleClass('collapsed');})//$('.statement').toggle("slide", {direction:'right'})
 					$(document).on('click', '.statement thead th', function () {
 						table = $(this).closest('.statement');
 						columnIndex = $(this).index();
@@ -697,7 +699,7 @@ console.log('c.recentD',c.recentD)
 						var getJson=()=>$.fn.filterMultiSelect.applied.map(e=>JSON.parse(e.getSelectedOptionsAsJson(true))).reduce((p,c)=>p.concat(c.debitor),[])
 						$('#debitors').on('optionselected',(e)=>{
 							$('.t,.s').show()
-							$('.distribute').append(`<tr data-e="${e.detail.value}"><td>${lookup(e.detail.value,2,0)}</td><td>-<input type="number" oninput="V(this)"></td><td>X</td></tr>`)
+							$('.distribute').append(`<tr data-e="${e.detail.value}"><td>${lookup(e.detail.value,2,0)}</td><td>-<input onfocus="this.select()" type="number" oninput="V(this)" value="0" ></td><td>X</td></tr>`)
 						})
 						$('#debitors').on('optiondeselected',(e)=>{
 							$(`.t tr[data-e="${e.detail.value}"]`).remove();
@@ -710,13 +712,13 @@ console.log('c.recentD',c.recentD)
 							recalc()
 						})
 						$(document).on('blur unfocus', '.t input', function() {
-    if ($(this).val()==="") $(this).val('');
+    if ($(this).val()==="") $(this).val('0');
 		if ($(this).val().toString().includes('.')) if($(this).value.toString().split('.')[1].length>2)$(this).val(Number($(this).value.toFixed(2)));
   });
-  $(document).on('keydown', '.t input', function (e) {
+  $(document).on('keydown input keyup', '.t input', function (e) {
   console.log('limiter', $(this).val());
   var Val = $(this).val();
-  if (Val.startsWith('0') || (Val.includes('.')&&Val.split('.')[1].length>1)||parseFloat(Val)>9999.99||parseFloat(Val)<-9999.99) {
+  if (Val.startsWith('0') || (Val.includes('.')&&Val.split('.')[1].length>2)||parseFloat(Val)>9999.99||parseFloat(Val)<-9999.99) {
     $(this).val($(this).data('previousValue'));
   } else {
     $(this).data('previousValue', $(this).val());
@@ -745,7 +747,7 @@ function recalc(){
 								sender.push(rows[i])
 							}
 							$('.reciept tbody').html(`<tr><td>${lookup(user,2,0)}</td><td>${(Number(lookup(user,2,1))+Number(total)).toFixed(2)}</td><td>(${Number(total).toFixed(2)})</td></tr>${receiptRow}`)
-							guests=rows.map((e,i)=>i%2===0?`${lookup(e,2,0)} ${Number(lookup(e,2,1))+Number((rows[i+1]))}(${rows[i+1]})`:null).filter(Boolean).join(', ')
+							guests=rows.map((e,i)=>i%2===0?`${lookup(e,2,0)} ${(Number(lookup(e,2,1))+Number(rows[i+1])).toFixed(2)}(${rows[i+1]})`:null).filter(Boolean).join(', ')
 							historyRecord=[moment().format('YYYY-MM-DD HH:mm:ss'),$('#titleInput').val(),lookup(user,2,0),guests,`${lookup(user,2,1)} (${total})`];
 							rows.splice(0, 0, user,  -total );
 							google.script.run.withSuccessHandler(r => {

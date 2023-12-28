@@ -1,3 +1,8 @@
+<!--
+DONT STORE SENSITIVE INFO
+clasp deploy --deploymentId AKfycbyXT3hD1Hegy6u3eyIrkvYy6w68Kcc5s40z_PoD_k0flLUCGc97WSX5VkrbyLbGrZBo
+-->
+
 # [<img src="icon.png" alt="i" width="30">Lunch Balance](https://sites.google.com/peplink.com/lunch)
 [![clasp](https://img.shields.io/badge/built%20with-clasp-4285f4.svg)](https://github.com/google/clasp)
 
@@ -10,11 +15,11 @@
 
 [Phoebe Figma UI/UX Sketch](https://www.figma.com/file/Ya1LfDaUotjncmGYSUjkFR/Intranet?type=design&node-id=26%3A2&mode=dev)
 
-[Google Site to embed and static URL](https://sites.google.com/d/1QP2lPVTie2sxlFiG-_xIkvAbCF_fo_Mc/p/1zfnLPP03dsRHqD9nEwSlbFDHZeGkkZxh/edit)
+[Google Site to embed and for static URL](https://sites.google.com/d/1QP2lPVTie2sxlFiG-_xIkvAbCF_fo_Mc/p/1zfnLPP03dsRHqD9nEwSlbFDHZeGkkZxh/edit)
 
 [Google App Script Dev/Head Stage](https://script.google.com/a/macros/peplink.com/s/AKfycbx0wPZ_cm3ObE9UeZkB3DOqgyLmgWdCm2lq8TZ5tbg/dev)
 
-Current (7Dec2023) Embeded Deploy ID `AKfycbyXT3hD1Hegy6u3eyIrkvYy6w68Kcc5s40z_PoD_k0flLUCGc97WSX5VkrbyLbGrZBo`
+Current (27Dec2023) Embeded Deploy ID `AKfycbyXT3hD1Hegy6u3eyIrkvYy6w68Kcc5s40z_PoD_k0flLUCGc97WSX5VkrbyLbGrZBo`
 https://script.google.com/a/macros/peplink.com/s/AKfycbyXT3hD1Hegy6u3eyIrkvYy6w68Kcc5s40z_PoD_k0flLUCGc97WSX5VkrbyLbGrZBo/exec
 
 ## Switch to Admin Accounts (Peplink,Peplink-LT,Resigned Staff)

@@ -74,16 +74,16 @@ function update(rows,receipt,sender,historyRecord) {
   MailApp.sendEmail({
     to: sender,
     subject: 'Lunch Balance Reciept',
-    htmlBody: '<html>'+receipt+'</html>'
+    htmlBody: `<html>${receipt}</html>`
   });
 SpreadsheetApp.getActiveSpreadsheet().getSheetByName("History").insertRowsBefore(2, 1).getRange(2, 1, 1, historyRecord.length).setValues([historyRecord]);
-validate()
+//validate()
   return 'Update Successful!';
 }
 function validate(){
-  var range=statement.getRange('B2:B')
+  var range=statement.getRange('B2:B'+statement.getLastRow())
   range.setValues(range.getValues().map(r=>[parseFloat(r[0]).toFixed(2)]));
-  var sum = statement.getRange("B2:B").getValues().reduce(function(a, r) {return a + (r[0] || 0);}, 0);
+  var sum = statement.getRange("B2:B"+statement.getLastRow()).getValues().reduce(function(a, r) {return a + (r[0] || 0);}, 0);
   sum=parseFloat(sum)
   Logger.log("Sum of all employees statement is: " + sum.toFixed(2));
 if (sum.toFixed(2) === 0) {
