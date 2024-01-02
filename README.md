@@ -25,7 +25,7 @@ https://script.google.com/a/macros/peplink.com/s/AKfycbyXT3hD1Hegy6u3eyIrkvYy6w6
 ## Switch to Admin Accounts (Peplink,Peplink-LT,Resigned Staff)
 Go to [Google Sheet (Database)](https://docs.google.com/spreadsheets/d/1pU4uWo6HQUNyoJ5C7ZLx-tJ1Pk0Vvxsmgc04hw0UWtw/edit?usp=sharing) > Statement Sheet > Your account row > Tick Admin Checkbox
 
-Refresh [Lunch Balance Site](https://sites.google.com/peplink.com/lunch) to see if its in effect
+Refresh [Lunch Balance Site](https://sites.google.com/peplink.com/lunch) to see if its in effect 
 
 ## How to Add Colleague
 **Method A (Automatic)**: Use Colleagues' Google Account to Login [Lunch Balance Site](https://sites.google.com/peplink.com/lunch)
