@@ -355,6 +355,9 @@ float: right;
 	color: white;
 	cursor: pointer;
 }
+.statement.collapsed{
+	display: none;
+}
 #D{
 	visibility: hidden;
 	position: absolute;
@@ -366,7 +369,7 @@ float: right;
 	font-size: 16px;;
 	visibility: visible;
 	border: none;
-	background-color: #7b7b7b;
+	background-color: #a8a8a8;
 	position: absolute;
 	left: 0;
 	top: 0;
@@ -377,6 +380,10 @@ float: right;
 	font-weight: bold;
 	padding-top: 2px;
 }
+#D:after:hover{
+	background-color: #7b7b7b;
+}
+
 #D:hover{
 	cursor: pointer;
 }
@@ -384,7 +391,7 @@ span.item {
 	background-color: #ffa500!important;
 }
 
-.d *,.d .m {
+.d *,.d .m, .d{
 	background-color: black;
 	color:white;
 }
@@ -436,6 +443,7 @@ background-color: #3c3c3c;
 .d .t tbody tr td:last-child{
 color: white;
 }
+
 @media only screen and (max-width: 700px){
 							.v.collapsed::before{
 								z-index: 15;
@@ -473,12 +481,13 @@ color: white;
 		src="https://cdn.jsdelivr.net/gh/andreww1011/filter-multi-select/dist/filter-multi-select-bundle.min.js"></script>
 	<main>
 		<button id=D onclick="$('html').toggleClass('d')">D</button>
+		<div id='lang'></div>
 		<div class=m>
-			<a href="https://sites.google.com/peplink.com/lunch" style="text-decoration: none;color: black;"><h1 style="display: inline;margin-right: 3vw;" ><span class="material-symbols-outlined">wallet</span>&nbsp;Lunch Balance</h1></a>
-			<a href="javascript:void(0)" onclick="window.open('https://docs.google.com/spreadsheets/d/1pU4uWo6HQUNyoJ5C7ZLx-tJ1Pk0Vvxsmgc04hw0UWtw/edit#gid=205375985')" id=his>View History <i class=material-symbols-outlined>open_in_new</i></a>
+			<a href="https://sites.google.com/peplink.com/lunch" style="text-decoration: none;color: black;"><h1 style="display: inline;margin-right: 3vw;" ><span class="material-symbols-outlined">wallet</span>&nbsp;<T>Lunch Balance</T></h1></a>
+			<a href="javascript:void(0)" onclick="window.open('https://docs.google.com/spreadsheets/d/1pU4uWo6HQUNyoJ5C7ZLx-tJ1Pk0Vvxsmgc04hw0UWtw/edit#gid=205375985')" id=his><T>View History</T> <i class=material-symbols-outlined>open_in_new</i></a>
 			<aside class=in>
-			<label for=email>Your are:</label><p id=user ><?=grab('user')?></p>
-			<label for=bal>Balance:</label>	<p id=bal></p>
+			<label for=email><T>Your are:</T></label><p id=user ><?=grab('user')?></p>
+			<label for=bal><T>Balance:</T></label>	<p id=bal></p>
 			<label for=sw class=sw>Switch to Account</label>
 			<aside id=sw class=sw>
 				<input type=checkbox value=account+HQ@peplink.com>  Peplink <br>
@@ -486,8 +495,8 @@ color: white;
 				<input type=checkbox value=account+Resigned@peplink.com>  Resigned Staff <br>
 			</aside>
 			
-			<label for=titleInput>Restaurant (Optional):</label><input id=titleInput>
-			<label for=deb style=align-self:normal>Debitor(s):</label>
+			<label for=titleInput><T>Restaurant (Optional):</T></label><input id=titleInput>
+			<label for=deb style=align-self:normal><T>Debitor(s):</T></label>
 			<div id=deb>
 			<select multiple id="debitors" name="debitor" style="display:none"></select>
 			<table class=t>
@@ -537,6 +546,11 @@ color: white;
 
 		<div id=stay><p class=v></p><div class=statement></div></div><!--<button class=v></button>-->
 	</main>
+	<script>
+var G={};
+	G.lang=`<?=grab('lang')?>`.slice(1,-1)
+	</script>
+	<?!= include('i18n'); ?>
 	<script>
 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) $("html").attr("data-color-scheme", "dark").addClass("d");
 let isDark = $("html").attr("data-color-scheme") === "dark";

@@ -1,0 +1,27 @@
+{
+    "language": "日本語",
+    "date": "日にち",
+    "question": "言語を選択してください",
+    "search": "サーチ",
+    "news1": "ニュース",
+    "news2": "別のニュース",
+    "profile": "プロフィール",
+    "profileSettings": "セッティング",
+    "profileLogout": "ログアウト",
+    "accordion1": "アイテム - 1",
+    "accordion2": "アイテム - 2",
+    "accordion3": "アイテム - 3",
+    "accordionTxt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vitae magna lacus. Fusce pretium urna id tellus ornare sagittis. Sed ac sagittis nibh, nec vehicula dolor. Cras et posuere mi",
+    "maskText": "私がみえますか？",
+    "slide1Label": "1 枚目のスライド ラベル",
+    "slide2Label": "2 番目のスライド ラベル",
+    "slide3Label": "3 番目のスライド ラベル",
+    "slide1Description": "日本語 - Nulla vitae elit libero, a pharetra augue mollis interdum.",
+    "slide2Description": "日本語 - Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "slide3Description": "日本語 - Praesent commodo cursus magna, vel scelerisque nisl consectetur.",
+    "popconfirm": {
+      "message": "サンプルテキスト",
+      "okText": "Ok",
+      "cancelText": "キャンセル"
+    }
+  }

@@ -1,0 +1,128 @@
+<html><body>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icon-css@3.5.0/css/flag-icon.min.css">
+<style>
+.temp{display: none};
+   .dropdown {
+      position: relative;
+    }
+    .dropdown .select-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 3px;
+      cursor: pointer; 
+      width: min-content;
+      background-color: #a8a8a8;
+      border-radius: 5px;
+    }
+    .dropdown .select-box .selected-option {
+      flex-grow: 1;
+    } 
+    .dropdown .options-list {
+      position: absolute;
+      top: 100%; 
+      background-color: #a8a8a8;
+      border-top: none;
+      width: -webkit-fill-available;
+      display: none;
+    }
+    .dropdown .option {
+      padding: 7px;
+      cursor: pointer;
+      align-items: center;
+      display: block;
+      width: 100%;
+    } 
+    .dropdown span,.dropdown span:hover{
+        background-color: inherit;
+    }
+    .dropdown .option:hover,.select-box:hover{
+      background-color: #7b7b7b;
+    }
+    #lang{
+        margin: 1vw;
+        position: absolute;
+        margin-left: calc(1vw + 50px);
+    }
+    </style>    
+
+    <aside class="temp">
+        <h1><T>Lunch Balance</T></h1>
+        <select id='lang'></select>
+        <span class="flag-icon flag-icon-us"></span>
+        <span class="flag-icon flag-icon-hk"></span>
+        <span class="flag-icon flag-icon-lt"></span>
+    
+        <button class='xT' data-language="en">English</button>
+      <button class='xT' data-language="ja">日本語</button>
+      <button class='xT' data-language="pt">Português</button>
+    </aside>
+    <aside class="lang">
+        <div class="dropdown">
+            <div class="select-box">
+              <span class="selected-option"><span class="flag-icon flag-icon-us"></span></span>&#9662;
+            </div>
+            <div class="options-list">
+              <span class="option flag-icon flag-icon-us" data-lang="en"></span>
+              <span class="option flag-icon flag-icon-hk" data-lang="zh-hk"></span>
+              <!--<span class="option flag-icon flag-icon-lt" data-lang="lt"></span>-->
+            </div>
+          </div>
+    </aside>
+    <!--
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    -->
+
+    <script>
+           var translations = {
+        "zh-hk": {
+          "Lunch Balance":  "午餐結餘",
+          "Your are:":      "您是：",
+          "Balance:":        "結餘",
+          "Restaurant (Optional):":        "餐廳（可選）：",
+          "Debitor(s):":        "債務人：",
+          "View History":        "歷史記錄",
+        },
+       
+      };
+if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    //insert jquery
+    var G={};
+    G.lang='en'
+    $('.temp').show()
+}else{//gas
+$('#lang').html($('.lang'))
+}
+console.log('G.lang',G.lang)
+function Reverse(t){r={};for(L in t){for(K in t[L]){r[t[L][K]]=K;}}return r;}
+translations['en']=Reverse(translations);    
+console.log(translations)
+function translatePage(language) {
+        $("T").each(function() {
+      try {
+        if (translations[language][$(this).text()]!==undefined)$(this).text(translations[language][$(this).text()])
+      } catch (error) {
+        //console.log(error) 
+       // console.log("Translation not available for language: " + error);
+      }
+    });
+  }
+  if (G.lang!=='en') translatePage(G.lang)
+  $(".dropdown .option").on("click", function() {
+        G.lang=$(this).data("lang")
+        translatePage(G.lang);
+      });
+      $('.dropdown .select-box').on('click', function() {
+        $('.dropdown .options-list').toggle();
+      });
+      
+      $('.dropdown .option').on('click', function() {
+        $('.dropdown .selected-option').html($(this).clone().removeClass('option')); 
+        $('.dropdown .options-list').hide();
+      });
+      $(document).on('click', function(event) {
+        if (!$(event.target).closest('.dropdown').length) $('.dropdown .options-list').hide();
+      });
+    </script>
+</body>
+</html>

@@ -12,6 +12,7 @@ if(c){
 }
 function grab(v) {
   switch (v) {
+    case 'lang':return Session.getActiveUserLocale()
     case 'author':return Session.getEffectiveUser().getEmail()
     case 'user':return Session.getActiveUser().getEmail()
     case 'getActiveUser':return Session.getActiveUser()
@@ -107,4 +108,7 @@ else{
     });
   }
 
+}
+function include(filename) {
+  return HtmlService.createHtmlOutputFromFile(filename).getContent();
 }
