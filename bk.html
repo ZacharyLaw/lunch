@@ -1,0 +1,46 @@
+<html>
+<head>
+  <style>
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(270deg, #ffecdd, #fffaee);
+      background-size: 300% 300%;
+      transition: background-position 2s;
+    }
+  .animation-class{
+    animation: gradientAnimation 5s ease infinite;
+    transition: background-position 2s;
+
+  } 
+    @keyframes gradientAnimation {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+  </style>
+</head>
+<body>
+  <div class="background animation-class" style="background-position: 50% 50%;"></div>
+  <!--
+  -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.1/underscore-min.js"></script>
+  <script>
+    $(document).ready(function() {
+      var updateMousePosition = function(event) {
+        var backgroundX = (event.clientX / $(window).width()) * 100;
+        var backgroundY = (event.clientY / $(window).height()) * 100; 
+        $('.background').removeClass('animation-class')
+          $('.background').attr('style',`background-position: ${backgroundX}% ${backgroundY}%;`);
+      };
+      $( ".background" ).on( "mouseleave", function() {
+        setTimeout(()=>$('.background').addClass('animation-class'),800);
+        })
+      $(document).mousemove(_.throttle(updateMousePosition, 100));
+    });
+  </script>
+</body>
+</html>

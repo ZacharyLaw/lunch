@@ -1,0 +1,35 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>      
+<script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/jQuery.tagify.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+<input id=tag name='basic' placeholder='Search Colleagues...'> <!--autofocus-->
+<script>  
+$('[name=basic]').tagify({ 
+      whitelist: [  
+  { id: '100', value: 'kenny' },
+  { id: '200', value: 'cartman' },
+  { id: '300', value: 'kyle' },
+  { id: '400', value: 'token' },
+  { id: '500', value: 'jimmy' }, 
+  { id: '600', value: 'butters' },
+  { id: '700', value: 'stan' },
+  { id: '800', value: 'randy' },
+  { id: '900', value: 'Mr. Garrison' },
+  { id: '1000', value: 'Mr. Mackey' }
+
+  ],  
+      enforceWhitelist : true,
+      tagTextProp: 'value',
+      dropdown: {  
+        enabled: 0,             // <- show suggestions on focus
+        closeOnSelect: false ,   // <- do not hide the suggestions dropdown once an item has been selected
+        mapValueTo: 'value', // <-- similar to above "tagTextProp" setting, but for the dropdown items
+        highlightFirst: true
+      } 
+    })
+  .on('add', function(e, tagData){ 
+      console.log(tagData.data.id)
+  });
+  </script> 

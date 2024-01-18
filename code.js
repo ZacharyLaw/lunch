@@ -1,8 +1,16 @@
 var statement=SpreadsheetApp.getActive().getSheetByName("Statement")
 
+
+
+
+
+
+
+
+
 function doGet() {
-  return HtmlService.createTemplateFromFile('index').evaluate().addMetaTag('viewport', 'width=device-width, initial-scale=1').setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
-}
+  return HtmlService.createTemplateFromFile('index').evaluate().addMetaTag('viewport', 'width=device-width, initial-scale=1 ,maximum-scale=1.0, user-scalable=no').setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL)
+  ;}
 function cache(c) {
   var cache = CacheService.getUserCache();
 if(c){
@@ -19,8 +27,8 @@ function grab(v) {
     case 'getUsername':return Session.getActiveUser().getUsername()
     case 'table':
       var data = statement.getRange("A:D").getValues().slice(1, statement.getLastRow());
-      var table = "<table><thead><th>Name</th><th>Balance</th><th>Email</th><th>Admin</th></thead><tbody>";
-      data.forEach(cells => table += `<tr><td>${cells[0]}</td><td>${cells[1]}</td><td>${cells[2]}</td><td>${cells[3]}</td></tr>`);
+      var table = "<table><thead><th>Name</th><th>Balance</th><th>Email</th><th>Admin</th><th></th></thead><tbody>";
+      data.forEach(cells => table += `<tr><td>${cells[0]}</td><td>${cells[1]}</td><td>${cells[2]}</td><td>${cells[3]}</td><td></td></tr>`);
       return table + "</tbody></table>";
     case 'tableAndUser':return [grab('table'),grab('user')];
     default:return -1;
@@ -45,7 +53,6 @@ function sort(){
   statement.getDataRange().offset(1, 0, sheet.getLastRow()- 1).sort([{ column: 2, ascending: true }]);
 }
 function update(rows,receipt,sender,historyRecord) {
-  console.log(rows,receipt,sender,historyRecord)
   var nameColumn = 1; // Column A
   var sumColumn = 2; // Column B
   var emailColumn = 3; // Column C
@@ -78,7 +85,7 @@ function update(rows,receipt,sender,historyRecord) {
     htmlBody: `<html>${receipt}</html>`
   });
 SpreadsheetApp.getActiveSpreadsheet().getSheetByName("History").insertRowsBefore(2, 1).getRange(2, 1, 1, historyRecord.length).setValues([historyRecord]);
-//validate()
+validate()
   return 'Update Successful!';
 }
 function validate(){
@@ -111,4 +118,18 @@ else{
 }
 function include(filename) {
   return HtmlService.createHtmlOutputFromFile(filename).getContent();
+}
+function P(user=Session.getActiveUser().getEmail(),obj){
+  var uP = PropertiesService.getUserProperties();
+  var uPPs = uP.getProperty(user)
+  if(JSON.stringify(uPPs)==='{}'||uPPs=='null'||obj=='null'||!uPPs||typeof uPPs == 'undefined')  {
+    var P={};
+    P.the='light'
+    P.fav=[]
+    uP.setProperty(user,JSON.stringify(P));
+    return JSON.stringify(uP.getProperty(user))
+  }
+  if(typeof obj==='undefined')     return JSON.stringify(uPPs);
+  else if(typeof k==='object')     uP.setProperty(user,obj)
+  else                             uP.setProperty(user,obj)
 }

@@ -10,22 +10,33 @@
 <body>
 
 	<head>
+		
 		<style>
 			:root {
   --main: #ffbf00;
   --greyed: #664d00;
+  --viewport-height: 100%;
+
 }
 			html,
 			body {
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
 				margin: 0;
 				overflow: hidden;
-				height: 100vh;
+				height: 100svh;
+				min-height: 100svh;
+				max-height: -webkit-fill-available;
+				width: 100dvw;
+				position: fixed;
 				-webkit-transition-duration: 1s;
 			}
 
 			.statement {
 				overflow-y: scroll;
-				height: 100vh;
+				height: 100svh;
 				box-shadow: -10px 0px 10px 0px rgba(0, 0, 0, 0.2);
 				width: fit-content;
 				transition: width 3s;
@@ -64,6 +75,7 @@
 			}
 			.t input {width: 95%;}
 			.t,.s {display: none;}
+			.s{display: block;}
 			.m {
 				margin: auto;
 				width: fit-content;
@@ -77,6 +89,7 @@
 			}
 
 			.s {
+				display: none;
 				float: right;
 				background-color: #ffbf00;
 				color: white;
@@ -93,7 +106,7 @@
 			main {
 				display: flex !important;
 				width: 100%;
-				height: 100vh;
+				height: 100svh;
 			}
 
 			.statement thead th {
@@ -161,6 +174,7 @@ background-color: #7b7b7b;
 	right:0px;
 	transform: translate(-50%, -50%);
 	content: "<";
+	color: white;
 
 }
 .filter-multi-select{
@@ -183,6 +197,7 @@ line-height: 3;
 	}
 	.statement td:nth-child(3) ,.statement th:nth-child(3),.statement td:nth-child(4) ,.statement th:nth-child(4) {display: none;}
 	#his i{font-size: medium;}
+	#his i.history{display: none;}
 	h1 i{font-size: smaller;}
 	h1 {font-size: none;}
 	label{margin: 0;}
@@ -276,6 +291,7 @@ label{
 .sw{
 	display: none!important;
 }
+.favourites{display: none;}
 /*
 #user button{
 	background-color:none;
@@ -358,6 +374,56 @@ float: right;
 .statement.collapsed{
 	display: none;
 }
+.statement{
+	padding-left: 30px;
+	box-shadow: inset 0px 28px 0px #f2f2f2;
+}
+
+.m-br{display: none;}
+.fav::after{
+	width:  1.5rem;
+	height: 1.5rem;
+	vertical-align: middle;
+	display: flex;
+	text-align: center;
+	content: '♡';
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+	font-size:xx-large ;
+}
+.♡:after{/*♡ ♥*/
+content: '♡';
+}
+.♥:after{
+content: '♥';
+color: red;
+}
+.fav:hover:after{
+	cursor: pointer;
+	background-color: #7b7b7b;
+}
+aside.favourites span{
+	border-radius: 1.1em;
+	align-items: center;
+	vertical-align: baseline;
+	margin: .125rem;
+	padding: 0 .5rem 0 .5rem;
+	display: inline-flex;
+	height: 1.875em;
+	border: #ffa500 1px solid;
+
+}
+aside.favourites span:hover{
+	cursor: pointer;
+}
+aside.favourites span.active{
+	background-color: #ffa500;
+}
+tr.marked-row td:after{
+	content: '';
+}
+
 #D{
 	visibility: hidden;
 	position: absolute;
@@ -380,30 +446,37 @@ float: right;
 	font-weight: bold;
 	padding-top: 2px;
 }
-#D:after:hover{
+#D:hover,#D:hover:after,#D:after:hover{
+	cursor: pointer;
 	background-color: #7b7b7b;
 }
 
-#D:hover{
-	cursor: pointer;
-}
 span.item {
 	background-color: #ffa500!important;
 }
+#stay{
+	z-index: 15;
+}
 
-.d *,.d .m, .d{
+.d,.d .m, .d,{
 	background-color: black;
 	color:white;
 }
-.d .m ,.d .m *,.d .statement{
+
+.d *{
+	color:white;
+}
+.d main{
+	background-color: black;
+
+}
+.d .m ,.d .m,.d .statement,.d .statement tbody td{
 	background-color: #1f1f1f;
 }
-.d .statement thead th, .d i {
+.d .statement thead th{
 	background-color: #3c3c3c;
 }
-.d .statement tbody td{
-	background-color: #1f1f1f;
-}
+
 .d .marked-row td{
 	background-color: yellow!important;
 	color: black;
@@ -443,8 +516,10 @@ background-color: #3c3c3c;
 .d .t tbody tr td:last-child{
 color: white;
 }
-
-@media only screen and (max-width: 700px){
+.d .statement{
+	box-shadow: inset 0px 28px 0px #3c3c3c;
+}
+@media only screen and (max-width: 800px){
 							.v.collapsed::before{
 								z-index: 15;
 								left:0;
@@ -456,15 +531,83 @@ color: white;
 							.statement{display: none;}
 							.statement.collapsed{
 								overflow-y: scroll;
-								height: 100vh;
+								height: 100svh;
 								width: 100%;
 								position: absolute;
 								top: 0;
 								left: 0;
 								background-color: white;	
-								display: block;}
+								display: block;
+							}
+								main{height: 100svh;}
+								.m{
+									height: 100svh;
+									width: 100dvw;
+									background-color: unset!important;
+									box-shadow: unset!important;
+									
+								}
+								/*
+								.d .m ,.d .m *,.d .statement{
+									background-color: #1f1f1f;
+								}*/
+								.m aside, .d .i, .m aside,.m a,.in,{/*.m aside *, .d .m **/
+									background-color: unset!important;
+								}
+								.in{
+									display: flex;
+									align-items: center;
+									align-content: center;
+									flex-wrap: wrap;
+								}
+
+								h1{
+									font-size: 24px;
+								}
+								#his t{
+									display: none;
+								}
+								#his{
+									background-color: #a8a8a8!important;
+									border-radius: 50%;
+									height: 30px;
+									width: 30px;
+
+								}
+								#his i.history{display: block;margin: 6px;}
+								#his i.open_in_new{display: none;}
+								#D {
+									z-index: 10;
+									right: 60px;
+									top: 1.5vw;
+								}
+								.in{
+									display: block;
+								}
+							
+								.m-br{display: block;}
+								.s{
+									position: fixed;
+									bottom: 5dvh;
+									right: 3dvw;
+									width: 50%;
+									height: 42px;
+
+								}
+								.t{
+									width: 100%;
+								}
 								.statement.collapsed table{
-							width: 100vw;
+									width: 100%;
+								}
+								.d .statement.collapsed{
+									background-color: #1f1f1f;
+								}
+								.dropdown-menu{
+									max-height: 80vh!important;
+								}
+								.t tbody tr td:nth-child(2){
+									width: unset!important;
 								}
 }/*mobile*/
 	</style>
@@ -479,23 +622,32 @@ color: white;
 		href="https://cdn.jsdelivr.net/gh/andreww1011/filter-multi-select/dist/filter_multi_select.css" />
 	<script
 		src="https://cdn.jsdelivr.net/gh/andreww1011/filter-multi-select/dist/filter-multi-select-bundle.min.js"></script>
-	<main>
-		<button id=D onclick="$('html').toggleClass('d')">D</button>
+	<main class="background animation-class">
+		<button id=D title="Toggle Theme">D</button>
+		<!--
 		<div id='lang'></div>
+		-->
 		<div class=m>
-			<a href="https://sites.google.com/peplink.com/lunch" style="text-decoration: none;color: black;"><h1 style="display: inline;margin-right: 3vw;" ><span class="material-symbols-outlined">wallet</span>&nbsp;<T>Lunch Balance</T></h1></a>
-			<a href="javascript:void(0)" onclick="window.open('https://docs.google.com/spreadsheets/d/1pU4uWo6HQUNyoJ5C7ZLx-tJ1Pk0Vvxsmgc04hw0UWtw/edit#gid=205375985')" id=his><T>View History</T> <i class=material-symbols-outlined>open_in_new</i></a>
+			<a href="https://sites.google.com/peplink.com/lunch"  target="_blank" style="text-decoration: none;color: black;"><h1 style="display: inline;margin-right: 3vw;" ><span class="material-symbols-outlined">wallet</span>&nbsp;<T>Lunch Balance</T></h1></a>
+			<a href="https://docs.google.com/spreadsheets/d/1pU4uWo6HQUNyoJ5C7ZLx-tJ1Pk0Vvxsmgc04hw0UWtw/edit#gid=205375985" id="his" target="_blank">
+				<T>View History</T>
+				<i class="material-symbols-outlined open_in_new">open_in_new</i>
+				<i class="material-symbols-outlined history">history</i>
+
+			  </a>
 			<aside class=in>
-			<label for=email><T>Your are:</T></label><p id=user ><?=grab('user')?></p>
-			<label for=bal><T>Balance:</T></label>	<p id=bal></p>
-			<label for=sw class=sw>Switch to Account</label>
+			<label for=email><T>Your are:</T></label><p id=user ><?=grab('user')?></p><br class="m-br">
+			<label for=bal><T>Balance:</T></label>	<p id=bal></p><br class="m-br">
+			<label for=sw class=sw>Switch to Account:</label>
 			<aside id=sw class=sw>
 				<input type=checkbox value=account+HQ@peplink.com>  Peplink <br>
 				<input type=checkbox value=account+LT@peplink.com>  Peplink-LT <br>
 				<input type=checkbox value=account+Resigned@peplink.com>  Resigned Staff <br>
 			</aside>
 			
-			<label for=titleInput><T>Restaurant (Optional):</T></label><input id=titleInput>
+			<label for=titleInput><T>Restaurant (Optional):</T></label><input id=titleInput placeholder="e.g. Canteen">
+			<label for=favouritesaside style=align-self:normal class=favourites>Favoursite(s):</label>
+			<aside id=favouritesaside class=favourites></aside><br class="m-br">
 			<label for=deb style=align-self:normal><T>Debitor(s):</T></label>
 			<div id=deb>
 			<select multiple id="debitors" name="debitor" style="display:none"></select>
@@ -549,21 +701,54 @@ color: white;
 	<script>
 var G={};
 	G.lang=`<?=grab('lang')?>`.slice(1,-1)
+	G.user=`<?=grab('user')?>`.slice(1,-1)
 	</script>
 	<?!= include('i18n'); ?>
+	
 	<script>
-if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) $("html").attr("data-color-scheme", "dark").addClass("d");
-let isDark = $("html").attr("data-color-scheme") === "dark";
+
+function save(){
+	console.log('saving',G.user,P,JSON.stringify(P))
+  google.script.run.P(G.user,JSON.stringify(P))  
+}
+try{
+
+  var P=JSON.parse(JSON.parse(`<?=P()?>`.slice(1,-1)))
+  if(typeof P==='undefined')throw new Error('Data is undefined');
+  console.log('retrieved',P)
+  }catch(err){
+  console.log('prop cannot use',err)
+  save()
+}
+try{
+if (P.the=='none'){
+	if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) $("html").attr("data-color-scheme", "dark").addClass("d");
+isDark = $("html").attr("data-color-scheme") === "dark";
+P.the= isDark ? 'dark' : 'light';
+save()
+}else if (P.the=='dark') {
+	isDark=true
+	$("html").attr("data-color-scheme", "dark").addClass("d");
+} else{
+	isDark=false
+	$("html").attr("data-color-scheme", "light").removeClass("d");
+}
+}catch(err){console.log(err);save()}
+
+
 $("#D").on("click", () => {
-$("html").attr("data-color-scheme", isDark ? "light" : "dark");
 isDark = !isDark;
+$("html").attr("data-color-scheme",isDark?"dark":"light");
+P.the= isDark?'dark':'light';
+if(isDark) $("html").attr("data-color-scheme","dark").addClass("d");
+else $("html").attr("data-color-scheme","light").removeClass("d");
+save()
 });
 		console.log("%cLink to readme.md: https://bitbucket.org/peplinkec/lunch-balance/src/master/readme.md", "font-weight: bold;color: red; font-size:50px; text-decoration: underline;");
 		//put data in div
 		if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
 			$('html').addClass('d')
 		}
-	
 			var select
 		function V(tis) {
  var prev = tis.getAttribute("data-prev");
@@ -574,12 +759,39 @@ isDark = !isDark;
 }
 		function initStatement() {
 			$('.statement tbody tr').each(function () {if ($(this).find('td:nth-child(3)').text() === user) $(this).addClass('marked-row')})
-			$('.statement th').each(function () { $(this).html($(this).html() + '<i class="material-icons" style="vertical-align: middle">unfold_more</i>') });
+			$('.statement th:nth-child(1),.statement th:nth-child(2)').each(function () { $(this).html($(this).html() + '<i class="material-icons" style="vertical-align: middle">unfold_more</i>') });
+			$('.statement tbody tr:not(.marked-row) td:nth-child(5)').addClass('fav').addClass('♡').each(function(){})//♡ ♥
+			try{
+				$(document).on('click', '.fav', function() {//♡ ♥
+				$(this).toggleClass('♡ ♥')
+				G.fav=$.map($('.♥').closest('tr').find('td:nth-child(3)'),$.text)
+				P.fav= JSON.stringify(G.fav)
+				save()
+				if(G.fav && G.fav.length>0) {
+					$('.favourites').show()
+					$('aside.favourites').html($.map(G.fav,E=>$(`<span data-e="${E}">${lookupnth(E,3,1)}</span>`)))
+					G.fav.forEach(function(f){
+						if(select.isOptionSelected(f))$(`span[data-e="${f}"]`).addClass('active')
+					})
+					//$("tr:has(td.♥)").prependTo("table");
+				}
+				else $('.favourites').hide()
+				
+			}).attr('title','Toggle Favourites')
+		}catch(err){console.log(err)}
 		}
-		function lookup(input, inputColumn, outputColumn) {//0,1,2
+
+		function lookup(input, inputColumn, outputColumn) {//0,1,2,3
 			result=false
 			$('.statement tbody tr').each(function () {
 				if ($(this).find(`td:eq(${inputColumn})`).text() === input) result = $(this).find(`td:eq(${outputColumn})`).text();
+			});
+			return result;
+		}
+		function lookupnth(input, inputColumn, outputColumn) {//1,2,3,4
+			result=false
+			$('.statement tbody tr').each(function () {
+				if ($(this).find(`td:nth-child(${inputColumn})`).text() === input) result = $(this).find(`td:nth-child(${outputColumn})`).text();
 			});
 			return result;
 		}
@@ -597,7 +809,6 @@ console.log('c.recentD',c.recentD)
 	}
 		google.script.run.withSuccessHandler(cache => {console.log('cache', cache)}).cache()
 		*/
-		
 			$('.statement').html(`<?=grab('table')?>`.slice(1,-1)).promise().done(function () {
 				user=`<?=grab('user')?>`;
 				user=user.slice(1,-1)
@@ -611,9 +822,25 @@ console.log('c.recentD',c.recentD)
 					$('#bal').html('0');
 					google.script.run.withSuccessHandler(table => {
 						$('.statement').html(table).promise().done(function () {
-							$('.statement tbody tr').each(function () {if ($(this).find('td:nth-child(3)').text() === user) $(this).addClass('marked-row')})})
+							$('.statement tbody tr').each(function () {if ($(this).find('td:nth-child(3)').text() === user) {$(this).addClass('marked-row')}})})
 					}).register(user,name);
 				}
+				console.log('length3')
+				try{
+if (P.fav&&P.fav.length>0){
+	console.log('length4')
+	G.fav= JSON.parse(P.fav)
+	if(G.fav.length>0) {
+		G.fav.forEach(function(f){
+			myfav=$(`.statement tbody tr:has(td:nth-child(3):contains("${f}"))`).find('td:nth-child(5)').toggleClass('♡ ♥')
+		})
+		//$("tr:has(td.♥)").prependTo("table");
+		$('.favourites').show()
+		G.fav = Array.from(new Set(G.fav));
+		$('aside.favourites').html($.map(G.fav,E=>$(`<span data-e="${E}">${lookupnth(E,3,1)}</span>`)))
+	}
+	else $('.favourites').hide()}
+}catch(err){console.log(err);save()}
 					//#region <Edit Mode>
 					/*
 					$('#user').hover(
@@ -679,6 +906,10 @@ console.log('c.recentD',c.recentD)
 							});
 					initStatement()
 					$('.v').click(()=>{$('.v,.statement').toggleClass('collapsed');})//$('.statement').toggle("slide", {direction:'right'})
+					$(document).on('click', 'aside.favourites span', function() {
+			if ($(this).hasClass('active')) select.deselectOption($(this).data('e'))
+			else select.selectOption($(this).data('e'))
+		})
 					$(document).on('click', '.statement thead th', function () {
 						table = $(this).closest('.statement');
 						columnIndex = $(this).index();
@@ -690,8 +921,8 @@ console.log('c.recentD',c.recentD)
 							aValue = $(a).find('td').eq(columnIndex).text();
 							bValue = $(b).find('td').eq(columnIndex).text();
 							if (!isNaN(parseFloat(aValue)) && !isNaN(parseFloat(bValue))) {
-								aValue = parseFloat(aValue.replace(',', '')) || 0;
-								bValue = parseFloat(bValue.replace(',', '')) || 0;
+								aValue = parseFloat(aValue.replace(',','')) || 0;
+								bValue = parseFloat(bValue.replace(',','')) || 0;
 								return ascending ? (aValue - bValue) : (bValue - aValue);
 							} else if (aValue === bValue) return 0;
 							else return ascending ? (aValue.localeCompare(bValue)) : (bValue.localeCompare(aValue));
@@ -705,6 +936,13 @@ console.log('c.recentD',c.recentD)
 					$('.statement tbody tr').each(function () {
 						$('#debitors').append(`<option value="${$(this).find('td:nth-child(3)').text()}">${$(this).find('td:first').text()}</option>`)
 					}).promise().done(function () {
+						var options = $('#debitors option');
+						var sortedOptions = options.toArray().sort(function(a, b) {
+						var textA = $(a).text().toUpperCase();
+						var textB = $(b).text().toUpperCase();
+						return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+						});
+						$('#debitors').empty().append(sortedOptions);
 						$('#debitors option[value=""]').remove();
 						$('#debitors').show()
 						select = $('#debitors').filterMultiSelect({ placeholderText:'Select Debitors...'})
@@ -714,9 +952,12 @@ console.log('c.recentD',c.recentD)
 						$('#debitors').on('optionselected',(e)=>{
 							$('.t,.s').show()
 							$('.distribute').append(`<tr data-e="${e.detail.value}"><td>${lookup(e.detail.value,2,0)}</td><td>-<input onfocus="this.select()" type="number" oninput="V(this)" value="0" ></td><td>X</td></tr>`)
+	
+							$(`#favouritesaside span[data-e="${e.detail.value}"]`).addClass('active')
 						})
 						$('#debitors').on('optiondeselected',(e)=>{
 							$(`.t tr[data-e="${e.detail.value}"]`).remove();
+							$(`#favouritesaside span[data-e="${e.detail.value}"]`).removeClass('active')
 							recalc()
 								})
 						$(document).on('click', '.t tr td:nth-child(3)', function() {
@@ -730,7 +971,6 @@ console.log('c.recentD',c.recentD)
 		if ($(this).val().toString().includes('.')) if($(this).value.toString().split('.')[1].length>2)$(this).val(Number($(this).value.toFixed(2)));
   });
   $(document).on('keydown input keyup', '.t input', function (e) {
-  console.log('limiter', $(this).val());
   var Val = $(this).val();
   if (Val.startsWith('0') || (Val.includes('.')&&Val.split('.')[1].length>2)||parseFloat(Val)>9999.99||parseFloat(Val)<-9999.99) {
     $(this).val($(this).data('previousValue'));
@@ -740,35 +980,35 @@ console.log('c.recentD',c.recentD)
   recalc()
 });
 function recalc(){
-	$('.t tfoot td:nth-child(2)').text($('.t tbody.distribute tr input').toArray().reduce((A,E)=>A+(v=>!isNaN(v)?Math.round(v*100)/100:0)(parseFloat($(E).val())),0).toFixed(2)*(-1));
+	sum=$('.t tbody.distribute tr input').toArray().reduce((A,E)=>A+(v=>!isNaN(v)?Math.round(v*100)/100:0)(parseFloat($(E).val())),0).toFixed(2)*(-1)
+	$('.t tfoot td:nth-child(2)').text(sum>0?"+"+sum:sum);
 							if ($('.t tfoot td:nth-child(2)').text()=='0') $('.s').prop('disabled',true)
 							else $('.s').prop('disabled',false)
 							if($('.t tbody tr').length==0) $('.t,.s').hide()
 }
 						$(document).on('input','.t input',()=>recalc())
-						$('.s').on('click', function () {
+						$('.s').on('click', function () {//submit
 							$(this).prop('disabled',true)
 							$('html').addClass('l')
 							const rows = $('.distribute tr').map(function(){return [$(this).data('e'),$(this).find('td:eq(1) input').val()]}).get();
 							$('.payer').html(lookup(user,2,0))
-							$('.titleOutput').html($('#titleInput').val())
+							$('.titleOutput').text($('#titleInput').val())
 							var total = -parseFloat($('.t tfoot td:nth-child(2)').text());
 							receiptRow = ''
 							sender=[user]
 							//compress this for loop
 							for (var i = 0; i < rows.length; i += 2) {
-								receiptRow += `<tr><td>${lookup(rows[i],2,0)}</td><td>${(Number(lookup(rows[i],2,1))-Number(rows[i+1])).toFixed(2)}</td><td>(${Number(rows[i+1]).toFixed(2)})</td></tr>`
+								receiptRow += `<tr><td>${lookup(rows[i],2,0)}</td><td>${(Number(lookup(rows[i],2,1))-Number(rows[i+1])).toFixed(2)}</td><td> (${Number(rows[i+1])>0?'-'+Number(rows[i+1]).toFixed(2):"+"+(Number(rows[i+1])*(-1)).toFixed(2)})</td></tr>`
 								sender.push(rows[i])
 							}
-							$('.reciept tbody').html(`<tr><td>${lookup(user,2,0)}</td><td>${(Number(lookup(user,2,1))+Number(total)).toFixed(2)}</td><td>(${Number(total).toFixed(2)})</td></tr>${receiptRow}`)
-							guests=rows.map((e,i)=>i%2===0?`${lookup(e,2,0)} ${(Number(lookup(e,2,1))+Number(rows[i+1])).toFixed(2)}(${rows[i+1]})`:null).filter(Boolean).join(', ')
-							historyRecord=[moment().format('YYYY-MM-DD HH:mm:ss'),$('#titleInput').val(),lookup(user,2,0),guests,`${lookup(user,2,1)} (${total})`];
+							$('.reciept tbody').html(`<tr><td>${lookup(user,2,0)}</td><td>${(Number(lookup(user,2,1))+Number(total)).toFixed(2)}</td><td> (${Number(total)>0?"+"+Number(total).toFixed(2):Number(total).toFixed(2)})</td></tr>${receiptRow}`)
+							guests=rows.map((e,i)=>i%2===0?`${lookup(e,2,0)} ${Number(lookup(e,2,1)).toFixed(2)} (${Number(rows[i+1])>0?"-"+Number(rows[i+1]).toFixed(2):"+"+(Number(rows[i+1])*-1).toFixed(2)})`:null).filter(Boolean).join(', ')
+							historyRecord=[moment().format('YYYY-MM-DD HH:mm:ss'),$('#titleInput').val(),lookup(user,2,0),guests,`${lookup(user,2,1)} (${Number(total)>0?"+"+Number(total).toFixed(2):Number(total).toFixed(2)})`];
 							rows.splice(0, 0, user,  -total );
 							google.script.run.withSuccessHandler(r => {
 								google.script.run.withSuccessHandler(table => { $('.statement').html(table).promise().done(function () {
-									$('.statement tbody tr').each(function () {if ($(this).find('td:nth-child(3)').text() === user) $(this).addClass('marked-row')})
-									$('#bal').html(lookup(user,2,1))
-									$('.statement th').each(function () { $(this).html($(this).html() + '<i class="material-icons" style="vertical-align: middle">unfold_more</i>') });})
+									initStatement()
+									$('#bal').html(lookup(user,2,1))})
 								 }).grab('table')
 								 $('.in').hide()
 								 $('html').removeClass('l')
