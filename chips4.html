@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tagify Keyboard Navigation</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tagify/dist/tagify.css">
+</head>
+<body>
+  <input name="tags" placeholder="Type something..." value="Tag1,Tag2,Tag3">
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tagify/dist/jQuery.tagify.min.js"></script>
+  
+  <script>
+    $(document).ready(function() {
+      var tagInput = $('input[name="tags"]').tagify();
+      var tagify = tagInput.data('tagify');
+      var selectedIndex = -1;
+  
+      $(document).on('keydown', function(e) {
+        if (e.key === 'w' || e.key === 's') {
+          e.preventDefault();
+  
+          if (e.key === 'w') {
+            selectedIndex = Math.max(selectedIndex - 1, 0);
+          } else if (e.key === 's') {
+            selectedIndex = Math.min(selectedIndex + 1, tagify.value.length - 1);
+          }
+  
+          tagify.dropdown.show.call(tagify, tagify.value[selectedIndex].value);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

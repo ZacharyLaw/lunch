@@ -1051,11 +1051,9 @@ if (P.fav&&P.fav.length>0){
 							} else if (aValue === bValue) return 0;
 							else return ascending ? (aValue.localeCompare(bValue)) : (bValue.localeCompare(aValue));
 						});
-
 						$(this).data('ascending', !ascending);
 						table.find('tbody').empty().append(rows);
 					});
-
 					//$('.statement tbody').find('tr').filter(function(){$(this).find('td:empty').length > 0}).remove();
 					$('.statement tbody tr').each(function () {
 						$('#debitors').append(`<option value="${$(this).find('td:nth-child(3)').text()}">${$(this).find('td:first').text()}</option>`)
@@ -1100,27 +1098,10 @@ if (P.fav&&P.fav.length>0){
   })
   $(document).click(function(event) {
         var target = $(event.target);
-        console.log('dont insta close')
-
         if (!target.is("#tag,.tagify__dropdown, .tagify__input") && !target.closest("#tag,.tagify__dropdown, .tagify__input").length) $('#tag').data('tagify').dropdown.close.call()
       });
 	$('#tag').data('tagify').settings.dropdown.maxItems = 999;
-
-						//select = $('#debitors').filterMultiSelect({ placeholderText:'Select Debitors...'})
-						//select.disableOption(user)
 						$('div.dropdown-item.custom-control:has(label.custom-control-label:contains("Select All"))').hide()
-						//var getJson=()=>$.fn.filterMultiSelect.applied.map(e=>JSON.parse(e.getSelectedOptionsAsJson(true))).reduce((p,c)=>p.concat(c.debitor),[])
-						$('#debitors').on('optionselected',(e)=>{//select.
-							$('.t,.s').show()
-							$('.distribute').append(`<tr data-e="${e.detail.value}"><td>${lookup(e.detail.value,2,0)}</td><td>-<input onfocus="this.select()" type="number" oninput="V(this)" value="0" ></td><td title="Remove">X</td></tr>`)
-	
-							$(`#favouritesaside span[data-e="${e.detail.value}"]`).addClass('active')
-						})
-						$('#debitors').on('optiondeselected',(e)=>{
-							$(`.t tr[data-e="${e.detail.value}"]`).remove();
-							$(`#favouritesaside span[data-e="${e.detail.value}"]`).removeClass('active')
-							recalc()
-								})
 						$(document).on('click', '.t tr td:nth-child(3)', function() {
 							e=$(this).closest('tr').data('e')
 							$('#tag').data('tagify').removeTags(lookupnth(e,3,1))

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Swiping Navigation</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <!-- Include jQuery UI Touch Punch for mobile touch support -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    #page-container {
+      width: 300%;
+      height: 80%;
+      display: flex;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .page {
+      width: 100vw;
+      height: 100vh;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      color: white;
+      z-index: -20;
+    }
+
+    #page1 {
+      background-color: #3498db;
+    }
+
+    #page2 {
+      background-color: #2ecc71;
+    }
+
+    #page3 {
+      background-color: #e74c3c;
+    }
+
+    #navigation-container {
+      width: 100%;
+      height: 7%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      position: fixed;
+      bottom: 0;
+    }
+
+    .navigation-button {
+      padding: 10px;
+      background-color: #555;
+      color: white;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+    #page-container.ui-draggable-dragging {
+      cursor: grab;
+    }
+    hr {
+  width: 10px!important;
+  height: 10px!important;
+  border: 10px solid #ccc!important;
+  border-top-color: #000!important;
+  border-radius: 50%!important;
+  animation: spin 1s infinite linear!important;
+  margin-top: 0!important;
+  margin-bottom: 0!important;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+@keyframes spin {
+  0% {transform: rotate(0deg);}
+  100% {transform: rotate(360deg);}
+}
+  </style>
+  <script>
+    $(document).ready(function() {
+      let currentPage = 1;
+
+      $("#page-container").draggable({
+        axis: "x",
+        iframeFix: true,
+        drag: function(event, ui) {
+          $("#page3 iframe").css("pointer-events", "none");
+          if (ui.position.left > 0) {
+            ui.position.left = 0;
+          }
+
+          const maxLeft = $(window).width() * (3 - 1);
+          if (ui.position.left < -maxLeft) {
+            ui.position.left = -maxLeft;
+          }
+        },
+        stop: function(event, ui) {
+          // Re-enable iframe after dragging stops
+          $("#page3 iframe").css("pointer-events", "auto");
+
+          const pageIndex = Math.abs(Math.round(ui.position.left / $(window).width()));
+          const newLeft = -pageIndex * $(window).width();
+          $("#page-container").animate({ left: newLeft }, 300);
+          currentPage = pageIndex + 1;
+          console.log("Current Page: " + currentPage);
+        }
+      });
+
+      // Prevent iframe mousedown from interfering with drag
+      $("#page3 iframe").on("mousedown", function(event) {
+        event.stopPropagation();
+      });
+
+      $(".navigation-button").on("click", function() {
+        const targetPage = parseInt($(this).data("page"));
+        const targetLeft = -((targetPage - 1) * $(window).width());
+        $("#page-container").animate({ left: targetLeft }, 300);
+        currentPage = targetPage;
+        console.log("Current Page: " + currentPage);
+      });
+    });
+  </script>
+</head>
+<body>
+
+<div id="page-container">
+  <div class="page" id="page1">Page 1 Content</div>
+  <div class="page" id="page2">Page 2 Content</div>
+  <div class="page" id="page3"><hr>
+    <iframe src="https://script.google.com/a/macros/peplink.com/s/AKfycbx0wPZ_cm3ObE9UeZkB3DOqgyLmgWdCm2lq8TZ5tbg/exec?page=history" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+  </div>
+  <!-- Add more pages as needed -->
+</div>
+
+<div id="navigation-container">
+  <button class="navigation-button" data-page="1">Page 1</button>
+  <button class="navigation-button" data-page="2">Page 2</button>
+  <button class="navigation-button" data-page="3">Page 3</button>
+</div>
+
+</body>
+</html>

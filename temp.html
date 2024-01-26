@@ -1,71 +1,44 @@
-<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Dropdown Select Box</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icon-css@3.5.0/css/flag-icon.min.css">
-  <style>
-    .dropdown {
-      position: relative;
-      display: inline-block;
-    }
-    .dropdown .select-box {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px;
-      border: 1px solid #ccc;
-      cursor: pointer;
-    }
-    .dropdown .select-box .selected-option {
-      flex-grow: 1;
-    }
-    .dropdown .options-list {
-      position: absolute;
-      top: 100%; 
-      background-color: #fff;
-      border: 1px solid #ccc;
-      border-top: none;
-      display: none;
-    }
+<title>Click and Drag Number Change</title>
+<style>
 
-    .dropdown .option {
-      padding: 5px;
-      cursor: pointer;
-      align-items: center;
-      margin: 5px;
-    } 
-    .dropdown .option:hover {
-      background-color: #f0f0f0;
-    }
-  </style>
+  #number {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  input[type="number"] {
+    font-size: 16px;
+    width: 200px;
+    text-align: center;
+  }
+</style>
 </head>
 <body>
-  <div class="dropdown">
-    <div class="select-box">
-      <span class="selected-option"> <span class="flag-icon flag-icon-us"></span></span>&#9662;
-    </div>
+  <input type="number" id="number" value="0" />
 
-    <div class="options-list">
-      <span class="option flag-icon flag-icon-us"></span>
-      <span class="option flag-icon flag-icon-hk"></span>
-      <span class="option flag-icon flag-icon-lt"></span>
-    </div>
-  </div>
-
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script>
-    $(document).ready(function() {
-      $('.dropdown .select-box').on('click', function() {
-        $('.dropdown .options-list').toggle();
-      });
-      
-      $('.dropdown .option').on('click', function() {
-        var selectedOption = $(this).clone(); 
-        selectedOption.removeClass('option');
-        $('.dropdown .selected-option').html(selectedOption); 
-        $('.dropdown .options-list').hide();
-      });
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  $(document).ready(function() {
+    function round(v) {
+    return (v >= 0 || -1) * Math.round(Math.abs(v));
+}
+    var dragging = false;
+    var ori;
+    $(document).on('mousedown', 'input', function() {
+      dragging = true;
+      ori=Number( $('#number').val())
+      $('#number, body').css('cursor', 'ew-resize');
+    }).on('mouseup mouseleave', function() {
+      dragging = false;
+      $('#number, body').css('cursor', 'auto');
+    }).on('mousemove', function(event) {
+      if (dragging) {
+        var input = $('#number');
+        input.val(ori+Number((event.pageX - input.offset().left - input.width() / 2).toFixed(0)));
+      }
     });
-  </script>
+  });
+</script>
 </body>
 </html>

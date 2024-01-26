@@ -1,16 +1,26 @@
 var statement=SpreadsheetApp.getActive().getSheetByName("Statement")
-
-
-
-
-
-
-
-
-
-function doGet() {
-  return HtmlService.createTemplateFromFile('index').evaluate().addMetaTag('viewport', 'width=device-width, initial-scale=1 ,maximum-scale=1.0, user-scalable=no').setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL)
-  ;}
+var history=SpreadsheetApp.getActive().getSheetByName("History")
+function doGet(req) {
+  console.log(req)
+  if(req.parameter.page=='ajax')
+    return ContentService.createTextOutput(JSON.stringify({status: "success", "data": "my-data"})).setMimeType(ContentService.MimeType.JSON);
+  if(req.parameter.page=='history')
+    return html('history')
+  else if(req.parameter.page=='dev' && (grab('user')=='zacharylaw@peplink.com'||grab('user')=='stang@peplink.com'))
+    return html('dev')
+  else if (!req.parameter.name) 
+    return html('index')
+  else if (req.parameter.method){
+    console.log('method',req.parameter.method)
+    console.log('name',req.parameter.name)
+    console.log('email',req.parameter.email)
+    //register(req.parameter.email,req.parameter.name)
+    return ContentService.createTextOutput(JSON.stringify({"Message":"You did it","Method":req.parameter.method,"Name":req.parameter.name,"Email":req.parameter.email,"error":false},null,2)).setMimeType(ContentService.MimeType.JSON)}
+  else return HtmlService.createTemplateFromFile('index').evaluate().addMetaTag('viewport', 'width=device-width, initial-scale=1 ,maximum-scale=1.0, user-scalable=no').setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL)
+}
+function html(filename){
+  return HtmlService.createTemplateFromFile(filename).evaluate().addMetaTag('viewport', 'width=device-width, initial-scale=1 ,maximum-scale=1.0, user-scalable=no').setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL)
+}
 function cache(c) {
   var cache = CacheService.getUserCache();
 if(c){
@@ -31,6 +41,7 @@ function grab(v) {
       data.forEach(cells => table += `<tr><td>${cells[0]}</td><td>${cells[1]}</td><td>${cells[2]}</td><td>${cells[3]}</td><td></td></tr>`);
       return table + "</tbody></table>";
     case 'tableAndUser':return [grab('table'),grab('user')];
+    case 'history':return JSON.stringify(history.getDataRange().getValues().slice(1),null)
     default:return -1;
   }
 }
@@ -84,7 +95,7 @@ function update(rows,receipt,sender,historyRecord) {
     subject: 'Lunch Balance Reciept',
     htmlBody: `<html>${receipt}</html>`
   });
-SpreadsheetApp.getActiveSpreadsheet().getSheetByName("History").insertRowsBefore(2, 1).getRange(2, 1, 1, historyRecord.length).setValues([historyRecord]);
+history.insertRowsBefore(2, 1).getRange(2, 1, 1, historyRecord.length).setValues([historyRecord]);
 validate()
   return 'Update Successful!';
 }
@@ -120,7 +131,7 @@ function include(filename) {
   return HtmlService.createHtmlOutputFromFile(filename).getContent();
 }
 function P(user=Session.getActiveUser().getEmail(),obj){
-  var uP = PropertiesService.getUserProperties();
+  var uP = PropertiesService.getScriptProperties();
   var uPPs = uP.getProperty(user)
   if(JSON.stringify(uPPs)==='{}'||uPPs=='null'||obj=='null'||!uPPs||typeof uPPs == 'undefined')  {
     var P={};
@@ -129,7 +140,37 @@ function P(user=Session.getActiveUser().getEmail(),obj){
     uP.setProperty(user,JSON.stringify(P));
     return JSON.stringify(uP.getProperty(user))
   }
-  if(typeof obj==='undefined')     return JSON.stringify(uPPs);
-  else if(typeof k==='object')     uP.setProperty(user,obj)
-  else                             uP.setProperty(user,obj)
+  else if(typeof obj==='undefined'){
+    return JSON.stringify(uPPs);
+  }
+  else if(typeof obj==='string'){
+    uP.setProperty(user,obj)
+  }
+  else{                  
+    var P={};
+    P.the='light'
+    P.fav=[]  
+    uP.setProperty(user,JSON.stringify(P))
+    return JSON.stringify(uPPs);}
+  uP.setProperty(user,obj)
+
+}
+function ajax(request) {
+  console.log(request)
+  var data = history.getDataRange().getValues();
+  var draw = request.draw;
+  var start = request.start;
+  var length = request.length;
+  var paginatedData = data.slice(start, start + length);
+  var response = {
+    'draw': draw,
+    'recordsTotal': data.length,
+    'recordsFiltered': data.length,
+    'data': paginatedData
+  };
+  console.log(response)
+  return ContentService.createTextOutput(JSON.stringify(response,null,2)).setMimeType(ContentService.MimeType.JSON);
+}
+function notdom(){
+  
 }

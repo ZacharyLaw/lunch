@@ -1,0 +1,100 @@
+<html lang="en">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css">
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/datatables.net-colresize-unofficial@latest/jquery.dataTables.colResize.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/datatables.net-colresize-unofficial@latest/jquery.dataTables.colResize.css">
+  <script src="//cdn.datatables.net/plug-ins/1.13.7/features/searchHighlight/dataTables.searchHighlight.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/1.13.7/features/searchHighlight/dataTables.searchHighlight.css">
+  <script src="//bartaz.github.io/sandbox.js/jquery.highlight.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+<Style>
+  .dt-buttons{
+    float: unset!important;
+    display: flex;
+    justify-content: center;
+  }
+  .dt-colresizable-hover {
+cursor: col-resize !important;
+background-color: #eaeaea;
+border-left: 1px solid #bfbfbf;
+}
+tr th:first-child, tr td:first-chilYd {
+    min-width: 7.2rem!important;
+    white-space:nowrap;
+
+}
+@media only screen and (max-width: 800px){
+  tr th:first-child, tr td:first-child {
+    min-width: unset!important;
+    white-space:unset!important;
+
+}
+html{
+  padding-bottom: 25dvh;
+}
+}
+thead{
+  position: sticky;
+  top: 0;
+  background-color: white;
+}
+.dark,.dark thead{
+    background-color: black;
+    color: white;
+  }
+</Style>
+  <script>
+      $(document).ready(function() {
+      var table=$('#dataTable').DataTable({
+        "order":[[0,'desc']], 
+        dom: 'RSPQlfBtiprHF',
+        columns: [
+        { title: 'Datetime',"type":"date"},
+        { title: 'Title' },
+        { title: 'Payer' },
+        { title: 'Guest' },
+        { title: 'Sum' },
+    ],
+    data: JSON.parse(`<?=grab('history')?>`.slice(1,-1)),
+    deferRender: true, 
+    colResize: {isEnabled: true,},
+    lengthMenu: [ [10, 25, 50, 100,-1],[10, 25, 50,100, 'All']],
+    "pagingType": "input",
+    "pagingType": "full_numbers",
+    fixedHeader: true,
+    numbers_length: 11,
+    "buttons": [
+      {
+        text: '☾',
+        className: 'd',
+        action: function (e, dt, node, config) {$('html').toggleClass('dark')
+        if ($('html').hasClass('dark'))$('.d').text('☼') 
+else $('.d').text('☾');
+}
+      }
+    ],
+    "initComplete": function(settings, json) {
+      mode=window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+document.querySelector('html').classList.add(mode);
+if (mode==dark)$('.d').text('☼') 
+else $('.d').text('☾');  }
+    });
+   $.fn.DataTable.ext.pager.numbers_length =11;
+    table.on( 'draw', function () {
+      var body = $( table.table().body() );
+      body.unhighlight();
+      body.highlight( table.search() );  
+    } );
+
+    });
+ 
+
+  </script>
+<body>
+  <table id="dataTable" class="display" style="width:100%"></table>
+</body>
+</html>

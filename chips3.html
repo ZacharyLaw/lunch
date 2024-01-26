@@ -3,8 +3,13 @@
 <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>      
 <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/jQuery.tagify.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
-<input id=tag name='basic' placeholder='Search Colleagues...'> <!--autofocus-->
+<link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css">
+<input id=tag name='basic' placeholder='Select Colleagues...'> <!--autofocus-->
+<button id="enter">Enter</button>
+<style>
+ 
+
+</style>
 <script>  
 $('[name=basic]').tagify({ 
       whitelist: [  
@@ -22,14 +27,47 @@ $('[name=basic]').tagify({
   ],  
       enforceWhitelist : true,
       tagTextProp: 'value',
-      dropdown: {  
+      createInvalidTags:false,
+      editTags:false,
+      dropdown: { 
         enabled: 0,             // <- show suggestions on focus
         closeOnSelect: false ,   // <- do not hide the suggestions dropdown once an item has been selected
         mapValueTo: 'value', // <-- similar to above "tagTextProp" setting, but for the dropdown items
-        highlightFirst: true
+        highlightFirst: true,
+        searchKeys: ["nickname", "id"] ,
       } 
     })
   .on('add', function(e, tagData){ 
       console.log(tagData.data.id)
+      $('document').blur()
+      window.document.activeElement.blur()
+      setTimeout(() => document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" })), 0);
+      const escKeyEvent = new KeyboardEvent("keydown", { key: "Escape" });
+
+// Dispatch the event
+document.dispatchEvent(escKeyEvent);
+
+// Wait for a short delay (e.g., 100 milliseconds)
+setTimeout(() => {
+  // Dispatch another "Esc" key event
+  document.dispatchEvent(escKeyEvent);
+}, 100);
+$('#enter').click()
+console.log(e,tagData)
+      // $('.tagify').click()
   });
+  $('#enter').click(function(){
+    $('.tagify').click()
+  })
+  $('#tag').data('tagify').settings.editTags.keepInvalid = false;
+  $(document).on('keydown', function(event) {
+  if (event.which === 40) {
+    console.log('Keyboard down button pressed');
+    console.log($('.tagify--focus'))
+  }
+});
+var selectedIndex = -1;
+var tagify = $('#tag').data('tagify');
+
+
   </script> 
