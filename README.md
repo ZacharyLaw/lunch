@@ -7,6 +7,10 @@ clasp deploy --deploymentId AKfycbyXT3hD1Hegy6u3eyIrkvYy6w68Kcc5s40z_PoD_k0flLUC
 # [<img src="icon.png" alt="i" width="30">Lunch Balance](https://sites.google.com/peplink.com/lunch)
 [![clasp](https://img.shields.io/badge/built%20with-clasp-4285f4.svg)](https://github.com/google/clasp)
 
+
+![preview](image.png)
+
+
 [Lunch Balance Site](https://sites.google.com/peplink.com/lunch)
 
 [Google Sheet (Database)](https://docs.google.com/spreadsheets/d/1pU4uWo6HQUNyoJ5C7ZLx-tJ1Pk0Vvxsmgc04hw0UWtw/edit?usp=sharing)
@@ -81,20 +85,6 @@ Refresh [Lunch Balance Site](https://sites.google.com/peplink.com/lunch) to see 
 ☐ Private Cache for Recent Restaurant / Debitors / Expense Title
 
 ☐ Weekly/Monthly/Yearly Lunch Expense Analysis
-
-
-## Un-doable
-❌ (Not in Google Admin) Ask access to Lunch_Balance@peplink.com
-
-❌ (Not Google Admin) ghs.google.com Add lunch.peplink.com?
-
-❌ (Not Google Admin) Google Form to update Intranet Frontpage Details
-
-❌ (No API Key) Auto Google Contact Sync Intranet Frontpage
-
-❌ (No API Key) Auto Add Contact to Sheet1 with Notification (GoogleJsonResponseException: API call to directory.users.list 
-failed with error: Not Authorized to access this resource/api)
--->
 
 
 ## Author
