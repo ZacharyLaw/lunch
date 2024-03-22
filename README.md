@@ -1,5 +1,6 @@
 <!--
 DONT STORE SENSITIVE INFO
+clasp push -w
 clasp deploy --deploymentId AKfycbyXT3hD1Hegy6u3eyIrkvYy6w68Kcc5s40z_PoD_k0flLUCGc97WSX5VkrbyLbGrZBo
 -->
 

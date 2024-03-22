@@ -8,10 +8,14 @@ function onEdit(e) {
     var logSheet = e.source.getSheetByName("Audit Log");
     if (sheetName!='Statement') return 
     if (cell=='G1' && sheetName=='Statement') return
+    if (oldValue=='' && newValue=='') return
+    if (oldValue=='' && newValue=='0.00') return
     logSheet.insertRowsBefore(2,1).getRange(2, 1, 1, 7).setValues([[new Date(), user, "EDIT", sheetName, cell, oldValue, newValue]]);
     sync()
  }
   function onChange(e) {
+    console.log(JSON.stringify(e));
+    try {
     var user = e.user;
     var changeType = e.changeType;
     var sheetName = e.source.getSheetName();
@@ -28,22 +32,18 @@ function onEdit(e) {
       range=st+':'+en
       backup = SpreadsheetApp.openById('1yqBiHg5ZXXbm2ie62ZtanJ7P_O6Hzi-pLdN032fLInY').getSheetByName("Statement");
       old=backup.getRange(range).getValues()
+      if (JSON.stringify(old)=='[["","","","","","","",""]]') return
       logSheet.insertRowsBefore(2,1).getRange(2,1,1,6).setValues([[new Date(),user,changeType,sheetName,range,old.join(',').replace(',,,,', ',')]]);
       sync()
-    }
+    }else if (changeType == "OTHER") sync()
+  } catch (error) {  }
   }
   //https://docs.google.com/spreadsheets/d/1yqBiHg5ZXXbm2ie62ZtanJ7P_O6Hzi-pLdN032fLInY/edit?usp=sharing
   function sync() {
-    var sourceSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-    var targetSpreadsheet = SpreadsheetApp.openById('1yqBiHg5ZXXbm2ie62ZtanJ7P_O6Hzi-pLdN032fLInY');
-    var sheets = sourceSpreadsheet.getSheets();
-    sheets.forEach(function(sheet) {
-      var sheetName = sheet.getName();
-      var targetSheet = targetSpreadsheet.getSheetByName(sheetName);
-      if (!targetSheet) targetSheet = targetSpreadsheet.insertSheet(sheetName);
-      targetSheet.clear();
-      var values = sheet.getDataRange().getValues();
-      targetSheet.getRange(1, 1, values.length, values[0].length).setValues(values);
-    });
+    var statement = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Statement")
+    var targetSheet = SpreadsheetApp.openById('1yqBiHg5ZXXbm2ie62ZtanJ7P_O6Hzi-pLdN032fLInY').getSheetByName("Statement")
+    targetSheet.clear();
+    var values = statement.getDataRange().getValues();
+    targetSheet.getRange(1, 1, values.length, values[0].length).setValues(values);
     Logger.log('Sync completed successfully.');
   }

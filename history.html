@@ -11,6 +11,15 @@
   <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
   <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+	<script src="https://cdn.datatables.net/colreorder/1.5.0/js/dataTables.colReorder.min.js"></script>
+	<link href="https://cdn.datatables.net/colreorder/1.5.0/css/colReorder.dataTables.min.css" rel="stylesheet">
+	<script src="https://cdn.datatables.net/datetime/1.5.2/js/dataTables.dateTime.min.js"></script>
+	<link href="https://cdn.datatables.net/datetime/1.5.2/css/dataTables.dateTime.min.css" rel="stylesheet">
+
+	<script src="https://cdn.datatables.net/fixedheader/3.0.0/js/dataTables.fixedHeader.min.js"></script>
+	<link href="https://cdn.datatables.net/fixedheader/3.0.0/css/fixedHeader.dataTables.min.css" rel="stylesheet">
+	<script src="https://cdn.datatables.net/buttons/3.0.0/js/buttons.colVis.min.js"></script>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <Style>
   .dt-buttons{
     float: unset!important;
@@ -46,18 +55,28 @@ thead{
     background-color: black;
     color: white;
   }
+	.dark .highlight{
+    color: black;
+	}
+	.dt-buttons span{
+		font-size: small;
+	}
+	div.dt-buttons>.dt-button:hover:not(.disabled), div.dt-buttons>div.dt-button-split .dt-button:hover:not(.disabled),html.dark div.dt-buttons>.dt-button, html.dark div.dt-buttons>div.dt-button-split .dt-button,html.dark .dataTables_wrapper .dataTables_paginate .paginate_button.current, html.dark .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover{
+		border: none;
+	}
 </Style>
   <script>
       $(document).ready(function() {
       var table=$('#dataTable').DataTable({
         "order":[[0,'desc']], 
+				fixedHeader: true,
         dom: 'RSPQlfBtiprHF',
         columns: [
         { title: 'Datetime',"type":"date"},
         { title: 'Title' },
         { title: 'Payer' },
         { title: 'Guest' },
-        { title: 'Sum' },
+        { title: "Payers' Transaction" },
     ],
     data: JSON.parse(`<?=grab('history')?>`.slice(1,-1)),
     deferRender: true, 
@@ -68,31 +87,42 @@ thead{
     fixedHeader: true,
     numbers_length: 11,
     "buttons": [
-      {
-        text: '☾',
+		{
+        text: '<span class="material-symbols-rounded">wallet</span> Lunch Balance',
+        className: 'home',
+        action: function (e, dt, node, config) {
+					window.open('https://sites.google.com/peplink.com/lunch','_blank')
+ }},{
+        text: '☾ Change Theme',
         className: 'd',
         action: function (e, dt, node, config) {$('html').toggleClass('dark')
-        if ($('html').hasClass('dark'))$('.d').text('☼') 
-else $('.d').text('☾');
-}
-      }
+        if ($('html').hasClass('dark'))$('.d').text('☼ Change Theme') 
+else $('.d').text('☾ Change Theme');
+}},{
+            extend: 'copy',
+            text: '<span class="material-symbols-rounded">content_copy</span> <u>C</u>opy All',
+            key: {
+                key: 'c',
+            }
+        }
     ],
+		colReorder: {
+		order: [0,1,2,4,3]
+	},
     "initComplete": function(settings, json) {
-      mode=window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+mode=window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 document.querySelector('html').classList.add(mode);
-if (mode==dark)$('.d').text('☼') 
-else $('.d').text('☾');  }
+if (mode=='dark')$('.d').text('☼ Change Theme') 
+else $('.d').text('☾ Change Theme');  
+}//initComplete
     });
    $.fn.DataTable.ext.pager.numbers_length =11;
-    table.on( 'draw', function () {
+    table.on('draw', function () {
       var body = $( table.table().body() );
       body.unhighlight();
       body.highlight( table.search() );  
     } );
-
     });
- 
-
   </script>
 <body>
   <table id="dataTable" class="display" style="width:100%"></table>

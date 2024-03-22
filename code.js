@@ -6,6 +6,8 @@ function doGet(req) {
     return ContentService.createTextOutput(JSON.stringify({status: "success", "data": "my-data"})).setMimeType(ContentService.MimeType.JSON);
   if(req.parameter.page=='history')
     return html('history')
+  else if(req.parameter.page=='validate')
+    return html('validate')
   else if(req.parameter.page=='dev' && (grab('user')=='zacharylaw@peplink.com'||grab('user')=='stang@peplink.com'))
     return html('dev')
   else if (!req.parameter.name) 
@@ -40,8 +42,14 @@ function grab(v) {
       var table = "<table><thead><th>Name</th><th>Balance</th><th>Email</th><th>Admin</th><th></th></thead><tbody>";
       data.forEach(cells => table += `<tr><td>${cells[0]}</td><td>${cells[1]}</td><td>${cells[2]}</td><td>${cells[3]}</td><td></td></tr>`);
       return table + "</tbody></table>";
+    case 'table2':
+        var data = statement.getRange("A:D").getValues().slice(1, statement.getLastRow());
+        var table = "<table><thead><th>Name</th><th>Balance</th><th>Email</th><th>Admin</th><th></th></thead><tbody>";
+        data.forEach(cells => table += `<tr><td>${cells[0]}</td><td>${cells[1]}</td><td>${cells[2]}</td><td>${cells[3]}</td><td class="material-symbols-rounded">star</td></tr>`);
+        return table + "</tbody></table>";
     case 'tableAndUser':return [grab('table'),grab('user')];
     case 'history':return JSON.stringify(history.getDataRange().getValues().slice(1),null)
+    case 'dev': return ScriptApp.getService().getUrl().split('/').pop()
     default:return -1;
   }
 }
@@ -92,7 +100,7 @@ function update(rows,receipt,sender,historyRecord) {
   Logger.log("Data updated successfully.");
   MailApp.sendEmail({
     to: sender,
-    subject: 'Lunch Balance Reciept',
+    subject: 'Lunch Balance Update',
     htmlBody: `<html>${receipt}</html>`
   });
 history.insertRowsBefore(2, 1).getRange(2, 1, 1, historyRecord.length).setValues([historyRecord]);
